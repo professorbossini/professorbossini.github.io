@@ -9,6 +9,10 @@
   <style>
     body {
       background-color: #f8f9fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .social-icons a {
@@ -16,15 +20,13 @@
     }
 
     .profile-img {
-      /* width: 300px; */
-      height: 400px;
-      /* object-fit: center 20%; */
+      height: 250px;
       border-radius: 16px;
       margin: 15px auto;
       display: block;
     }
 
-   .carousel-container img {
+    .carousel-container img {
       margin: 0 auto;
       border-radius: 0.5rem;
     }
@@ -32,7 +34,7 @@
 </head>
 
 <body>
-  <div class="container py-5">
+  <div class="container py-3">
     <div class="text-center mb-4">
       <h1 class="fw-bold">Rodrigo Bossini</h1>
       <img src="guitarra_aniversariantes_junho.jpeg" alt="Foto de perfil do GitHub" class="profile-img" />
@@ -42,12 +44,12 @@
         Computação em Nuvem, DevOps, Desenvolvimento de software. Guitarrista e cantor entusiasta. Eterno aprendiz.</p>
     </div>
 
-    <div class="text-center mb-5">
+    <div class="text-center mb-3">
       <h4>📚 Material Didático</h4>
       <a href="https://bit.ly/compartilhado_alunos" class="btn btn-primary mt-2" target="_blank">Acessar Material</a>
     </div>
 
-    <div class="text-center mb-5">
+    <div class="text-center mb-3">
       <h4>🌐 Minhas Redes</h4>
       <div class="social-icons mt-3">
         <a href="https://www.instagram.com/rodrigobossini" target="_blank" class="btn btn-outline-danger">
@@ -60,54 +62,6 @@
           <i class="bi bi-github"></i> GitHub
         </a>
       </div>
-    </div>
-
-    <!-- <div class="card shadow mb-5">
-      <div class="card-header text-center bg-white">
-        <h5 class="fw-bold">🎯 Meus Hobbies</h5>
-      </div>
-     <div class="card-body">
-        <div id="carouselHobby" class="carousel slide carousel-container" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="false" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="hobby1.png" class="d-block w-25" alt="Hobby 1">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby2.png" class="d-block w-25" alt="Hobby 2">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby3.png" class="d-block w-25" alt="Hobby 3">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby4.png" class="d-block w-25" alt="Hobby 4">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby5.png" class="d-block w-25" alt="Hobby 5">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby6.png" class="d-block w-25" alt="Hobby 6">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby7.png" class="d-block w-25" alt="Hobby 7">
-            </div>
-            <div class="carousel-item">
-              <img src="hobby8.png" class="d-block w-25" alt="Hobby 8">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselHobby" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselHobby" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-          </button>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="text-center">
-      <p class="text-muted">Site publicado com GitHub Pages 🚀</p>
     </div>
   </div>
 
