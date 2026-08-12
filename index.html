@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rodrigo Bossini - Professor Universitário e Desenvolvedor de Software</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
       background-color: #f8f9fa;
@@ -14,27 +14,32 @@
       flex-direction: column;
       justify-content: center;
     }
-
-    .social-icons a {
-      margin-right: 15px;
-    }
-
     .profile-img {
       height: 250px;
       border-radius: 16px;
       margin: 15px auto;
       display: block;
     }
-
-    .carousel-container img {
-      margin: 0 auto;
-      border-radius: 0.5rem;
+    .card-rede {
+      border-radius: 16px;
+      height: 100%;
+    }
+    .card-professor {
+      border: 2px solid #d63384;
+      background-color: #fff;
+    }
+    .handle {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    .btn-rede {
+      min-width: 220px;
     }
   </style>
 </head>
-
 <body>
-  <div class="container py-3">
+  <div class="container py-4">
     <div class="text-center mb-4">
       <h1 class="fw-bold">Rodrigo Bossini</h1>
       <img src="https://avatars.githubusercontent.com/u/31605875?v=4" alt="Foto de perfil do GitHub" class="profile-img" />
@@ -44,33 +49,58 @@
         Computação em Nuvem, DevOps, Desenvolvimento de software. Guitarrista e cantor entusiasta. Eterno aprendiz. Caso perdido.</p>
     </div>
 
-    <div class="text-center mb-3">
+    <div class="text-center mb-4">
       <h4>📚 Material Didático</h4>
-      <a href="https://u.pcloud.link/publink/show?code=kZFaJwVZAgJbR8eJaa4FMBBqOpfktBWP27uk" class="btn btn-primary mt-2" target="_blank">Acessar Material</a>
+      <a href="https://u.pcloud.link/publink/show?code=kZFaJwVZAgJbR8eJaa4FMBBqOpfktBWP27uk" class="btn btn-primary mt-2" target="_blank" rel="noopener">Acessar Material</a>
+    </div>
+
+    <div class="row justify-content-center g-3 mb-4">
+      <div class="col-12 col-md-6">
+        <div class="card card-rede card-professor shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-1">🎓 Conteúdo de Programação e Ensino</h5>
+            <p class="handle mb-2">@professorbossini</p>
+            <p class="card-text small text-muted">Aulas, dicas de programação, algoritmos, nuvem e DevOps.</p>
+            <a href="https://www.instagram.com/professorbossini" target="_blank" rel="noopener" class="btn btn-danger btn-rede">
+              <i class="bi bi-instagram"></i> Instagram do Professor
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="card card-rede shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-1">🌐 Perfil Pessoal</h5>
+            <p class="handle mb-2">@rodrigobossini</p>
+            <p class="card-text small text-muted">Vida fora da sala de aula: música, leituras e afins.</p>
+            <a href="https://www.instagram.com/rodrigobossini" target="_blank" rel="noopener" class="btn btn-outline-danger btn-rede">
+              <i class="bi bi-instagram"></i> Instagram Pessoal
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="text-center mb-3">
-      
-      <h4>🌐 Minhas Redes</h4>
-      <div class="text-center mt-2">
-         <a class="github-button" href="https://github.com/professorbossini" data-size="large" data-show-count="true" aria-label="Seguir @professorbossini no Github">
-           Seguir @professorbossini no Github
+      <h4>Outras Redes</h4>
+      <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+        <a href="https://www.linkedin.com/in/rodrigobossini" target="_blank" rel="noopener" class="btn btn-outline-primary">
+          <i class="bi bi-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://github.com/professorbossini" target="_blank" rel="noopener" class="btn btn-outline-dark">
+          <i class="bi bi-github"></i> GitHub
         </a>
       </div>
-      <div class="social-icons mt-3">
-        <a href="https://www.instagram.com/rodrigobossini" target="_blank" class="btn btn-outline-danger">
-          <i class="bi bi-instagram"></i> Instagram
-        </a>
-        <a href="https://www.linkedin.com/in/rodrigobossini" target="_blank" class="btn btn-outline-primary">
-          <i class="bi bi-linkedin"></i> LinkedIn
+      <div class="text-center mt-3">
+        <a class="github-button" href="https://github.com/professorbossini" data-size="large" data-show-count="true" aria-label="Seguir @professorbossini no Github">
+          Seguir @professorbossini no Github
         </a>
       </div>
     </div>
   </div>
+
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </body>
-
 </html>
