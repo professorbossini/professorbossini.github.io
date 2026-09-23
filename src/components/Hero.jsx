@@ -54,7 +54,7 @@ function GradientAvatar() {
 
 export default function Hero() {
   return (
-    <Stack component="section" spacing={4} alignItems="center" textAlign="center">
+    <Stack component="section" spacing={4} sx={{ alignItems: 'center', textAlign: 'center' }}>
       <Reveal>
         <GradientAvatar />
       </Reveal>

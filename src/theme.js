@@ -55,7 +55,7 @@ const theme = createTheme({
     h2: { fontWeight: 500, letterSpacing: '-0.02em' },
     h3: { fontWeight: 500, letterSpacing: '-0.01em' },
     button: { textTransform: 'none', fontWeight: 500, letterSpacing: 0 },
-    overline: { fontFamily: fontMono, letterSpacing: '0.12em' },
+    overline: { fontFamily: fontMono, letterSpacing: '0.12em', lineHeight: 1.8 },
   },
   components: {
     MuiButton: {
