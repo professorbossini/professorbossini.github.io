@@ -13,11 +13,11 @@ import Galeria from './components/Galeria'
 const Material = lazy(() => import('./components/Material'))
 
 export const secoes = [
-  { id: 'inicio', rotulo: 'Início', icone: HomeOutlined, componente: Hero },
-  { id: 'material', rotulo: 'Material didático', icone: MenuBookOutlined, componente: Material },
-  { id: 'redes', rotulo: 'Redes sociais', icone: ShareOutlined, componente: Links },
-  { id: 'formacao', rotulo: 'Formação', icone: SchoolOutlined, componente: Trajetoria },
-  { id: 'musica', rotulo: 'Fora da sala de aula', icone: MusicNoteOutlined, componente: Galeria },
+  { id: 'inicio', rotulo: 'Início', curto: 'Início', icone: HomeOutlined, componente: Hero },
+  { id: 'material', rotulo: 'Material didático', curto: 'Material', icone: MenuBookOutlined, componente: Material },
+  { id: 'redes', rotulo: 'Redes sociais', curto: 'Redes', icone: ShareOutlined, componente: Links },
+  { id: 'formacao', rotulo: 'Formação', curto: 'Formação', icone: SchoolOutlined, componente: Trajetoria },
+  { id: 'musica', rotulo: 'Fora da sala de aula', curto: 'Música', icone: MusicNoteOutlined, componente: Galeria },
 ]
 
 export const idsSecoes = secoes.map((s) => s.id)
