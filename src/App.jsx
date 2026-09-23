@@ -5,6 +5,7 @@ import ThemeToggle from './components/ThemeToggle'
 import AuroraBackground from './components/AuroraBackground'
 import Hero from './components/Hero'
 import Links from './components/Links'
+import Trajetoria from './components/Trajetoria'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Stack spacing={{ xs: 12, md: 16 }}>
           <Hero />
           <Links />
+          <Trajetoria />
         </Stack>
       </Container>
     </ThemeProvider>

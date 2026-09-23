@@ -9,3 +9,17 @@ export const links = {
   linkedin: 'https://www.linkedin.com/in/rodrigobossini',
   github: 'https://github.com/professorbossini',
 }
+
+export const formacao = [
+  { titulo: 'Mestre em Ciência da Computação', instituicao: 'Universidade de São Paulo (USP)' },
+  { titulo: 'Bacharel em Ciência da Computação', instituicao: 'Centro Universitário FIEO (UNIFIEO)' },
+]
+
+export const certificacoes = [
+  { nome: 'AWS Certified AI Practitioner', emissor: 'AWS' },
+  { nome: 'AWS Certified Cloud Practitioner', emissor: 'AWS' },
+  { nome: 'Sun Certified Java Programmer', emissor: 'Sun' },
+  { nome: 'Sun Certified Web Component Developer', emissor: 'Sun' },
+]
+
+export const areas = ['Análise de Algoritmos', 'Computação em Nuvem', 'DevOps', 'Desenvolvimento de Software']
