@@ -81,8 +81,8 @@ export default function Hero() {
 
       <Reveal delay={300}>
         <Typography variant="h6" component="p" color="text.secondary" sx={{ fontWeight: 400, maxWidth: 560 }}>
-          Mestre em Ciência da Computação pela USP. Ensino a construir software que roda na nuvem — e
-          a entender os algoritmos por trás dele. Eterno aprendiz.
+          Mestre em Ciência da Computação pela USP. Ensino dos fundamentos à fronteira — do algoritmo à
+          IA — para formar gente que entende o que constrói. Eterno aprendiz.
         </Typography>
       </Reveal>
 
