@@ -1,31 +1,105 @@
-import { CssBaseline, Box, Container, Stack } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
+import MenuIcon from '@mui/icons-material/Menu'
 import theme from './theme'
 import ThemeToggle from './components/ThemeToggle'
 import AuroraBackground from './components/AuroraBackground'
-import Hero from './components/Hero'
-import Links from './components/Links'
-import Trajetoria from './components/Trajetoria'
-import Galeria from './components/Galeria'
-import Rodape from './components/Rodape'
+import Navegacao from './components/Navegacao'
+import useHashRoute from './useHashRoute'
+import { idsSecoes, secoes } from './secoes'
+
+const LARGURA_GAVETA = 300
+
+const fundoGaveta = {
+  width: LARGURA_GAVETA,
+  border: 'none',
+  bgcolor: 'var(--mui-palette-surface-container)',
+  backgroundImage: 'none',
+}
 
 export default function App() {
+  const [rota, navegar] = useHashRoute(idsSecoes, 'inicio')
+  const [gavetaAberta, setGavetaAberta] = useState(false)
+  const secao = secoes.find((s) => s.id === rota)
+  const Secao = secao.componente
+
+  useEffect(() => {
+    document.title = rota === 'inicio' ? 'Rodrigo Bossini — Professor e Desenvolvedor' : `${secao.rotulo} · Rodrigo Bossini`
+    window.scrollTo(0, 0)
+  }, [rota, secao])
+
+  const irPara = (id) => {
+    navegar(id)
+    setGavetaAberta(false)
+  }
+
   return (
     <ThemeProvider theme={theme} defaultMode="dark">
       <CssBaseline enableColorScheme />
       <AuroraBackground />
-      <Box component="header" sx={{ position: 'fixed', top: 16, right: 16, zIndex: 10 }}>
+
+      {/* celular: barra superior com botão de menu */}
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          display: { md: 'none' },
+          bgcolor: 'transparent',
+          backdropFilter: 'blur(16px)',
+          color: 'text.primary',
+        }}
+      >
+        <Toolbar sx={{ gap: 1 }}>
+          <IconButton edge="start" aria-label="Abrir menu" onClick={() => setGavetaAberta(true)}>
+            <MenuIcon />
+          </IconButton>
+          <Typography sx={{ flexGrow: 1, fontWeight: 500 }} noWrap>
+            {secao.rotulo}
+          </Typography>
+          <ThemeToggle />
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        variant="temporary"
+        open={gavetaAberta}
+        onClose={() => setGavetaAberta(false)}
+        sx={{ display: { md: 'none' } }}
+        slotProps={{ paper: { sx: { ...fundoGaveta, borderRadius: '0 28px 28px 0' } } }}
+      >
+        <Navegacao rota={rota} onNavegar={irPara} />
+      </Drawer>
+
+      {/* desktop: gaveta fixa */}
+      <Drawer
+        variant="permanent"
+        sx={{ display: { xs: 'none', md: 'block' }, width: LARGURA_GAVETA, flexShrink: 0 }}
+        slotProps={{ paper: { sx: { ...fundoGaveta, bgcolor: 'transparent', borderRight: '1px solid', borderColor: 'divider' } } }}
+      >
+        <Navegacao rota={rota} onNavegar={irPara} />
+      </Drawer>
+
+      <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'fixed', top: 16, right: 16, zIndex: 10 }}>
         <ThemeToggle />
       </Box>
-      <Container component="main" maxWidth="md" sx={{ py: { xs: 10, md: 14 } }}>
-        <Stack spacing={{ xs: 12, md: 16 }}>
-          <Hero />
-          <Links />
-          <Trajetoria />
-          <Galeria />
-          <Rodape />
-        </Stack>
-      </Container>
+
+      <Box
+        component="main"
+        sx={{
+          ml: { md: `${LARGURA_GAVETA}px` },
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          pt: { xs: 10, md: 6 },
+          pb: 6,
+        }}
+      >
+        {/* key força a remontagem, reiniciando as animações de entrada a cada troca de seção */}
+        <Container key={rota} maxWidth="md" sx={{ my: 'auto' }}>
+          <Secao />
+        </Container>
+      </Box>
     </ThemeProvider>
   )
 }
