@@ -22,7 +22,7 @@ export const certificacoes = [
   { nome: 'Sun Certified Web Component Developer', emissor: 'Sun' },
 ]
 
-export const areas = ['Análise de Algoritmos', 'Computação em Nuvem', 'DevOps', 'Desenvolvimento de Software']
+export const areas = ['Inteligência Artificial', 'Análise de Algoritmos', 'Computação em Nuvem', 'DevOps', 'Desenvolvimento de Software']
 
 export const fotos = [
   { src: '/images/palco-roxo.jpg', alt: 'Rodrigo tocando guitarra em um palco com luz roxa' },
