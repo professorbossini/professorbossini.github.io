@@ -1,9 +1,10 @@
-import { CssBaseline, Box, Container } from '@mui/material'
+import { CssBaseline, Box, Container, Stack } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
 import ThemeToggle from './components/ThemeToggle'
 import AuroraBackground from './components/AuroraBackground'
 import Hero from './components/Hero'
+import Links from './components/Links'
 
 export default function App() {
   return (
@@ -14,7 +15,10 @@ export default function App() {
         <ThemeToggle />
       </Box>
       <Container component="main" maxWidth="md" sx={{ py: { xs: 10, md: 14 } }}>
-        <Hero />
+        <Stack spacing={{ xs: 12, md: 16 }}>
+          <Hero />
+          <Links />
+        </Stack>
       </Container>
     </ThemeProvider>
   )
