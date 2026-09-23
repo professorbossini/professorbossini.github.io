@@ -11,7 +11,7 @@ import Rodape from './components/Rodape'
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme} defaultMode="system">
+    <ThemeProvider theme={theme} defaultMode="dark">
       <CssBaseline enableColorScheme />
       <AuroraBackground />
       <Box component="header" sx={{ position: 'fixed', top: 16, right: 16, zIndex: 10 }}>
