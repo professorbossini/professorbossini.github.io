@@ -31,3 +31,39 @@ export const fotos = [
   { src: '/images/musica-4.jpg', alt: 'Rodrigo tocando guitarra roxa em um ensaio' },
   { src: '/images/musica-5.jpg', alt: 'Rodrigo tocando guitarra em um evento' },
 ]
+
+export const redes = [
+  {
+    href: links.instagramProfessor,
+    marca: 'instagram',
+    title: 'Programação e ensino',
+    curto: 'Professor',
+    handle: '@professorbossini',
+    text: 'IA, aulas, dicas de programação, algoritmos, AWS e DevOps.',
+    featured: true,
+  },
+  {
+    href: links.instagramPessoal,
+    marca: 'instagram',
+    title: 'Perfil pessoal',
+    curto: 'Pessoal',
+    handle: '@rodrigobossini',
+    text: 'A vida fora da sala de aula: música, leituras e afins.',
+  },
+  {
+    href: links.linkedin,
+    marca: 'linkedin',
+    title: 'LinkedIn',
+    curto: 'LinkedIn',
+    handle: 'in/rodrigobossini',
+    text: 'Trajetória profissional, palestras e contato.',
+  },
+  {
+    href: links.github,
+    marca: 'github',
+    title: 'GitHub',
+    curto: 'GitHub',
+    handle: 'professorbossini',
+    text: 'Código das aulas, exemplos e projetos.',
+  },
+]
