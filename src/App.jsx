@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -97,7 +97,9 @@ export default function App() {
       >
         {/* key força a remontagem, reiniciando as animações de entrada a cada troca de seção */}
         <Container key={rota} maxWidth="md" sx={{ my: 'auto' }}>
-          <Secao />
+          <Suspense fallback={null}>
+            <Secao />
+          </Suspense>
         </Container>
       </Box>
     </ThemeProvider>

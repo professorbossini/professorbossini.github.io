@@ -1,7 +1,7 @@
 import { Box, Button, ButtonBase, Stack, Tooltip, Typography } from '@mui/material'
 import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined'
 import { aiGradient, easing } from '../theme'
-import { materialDidatico, redes, topicos } from '../data'
+import { redes, topicos } from '../data'
 import MarcaIcone from './MarcaIcone'
 import PromptTicker from './PromptTicker'
 import Reveal from './Reveal'
@@ -140,9 +140,7 @@ export default function Hero() {
         <Button
           variant="contained"
           size="large"
-          href={materialDidatico}
-          target="_blank"
-          rel="noopener"
+          href="#/material"
           startIcon={<MenuBookOutlined />}
           sx={{
             background: aiGradient,

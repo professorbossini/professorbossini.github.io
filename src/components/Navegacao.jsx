@@ -1,8 +1,5 @@
-import { Box, Divider, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
-import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined'
-import ArrowOutward from '@mui/icons-material/ArrowOutward'
+import { Box, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
 import { aiGradient, easing } from '../theme'
-import { materialDidatico } from '../data'
 import { secoes } from '../secoes'
 
 const itemSx = {
@@ -51,15 +48,6 @@ export default function Navegacao({ rota, onNavegar }) {
         ))}
       </List>
 
-      <Divider sx={{ my: 1.5, mx: 2 }} />
-
-      <List>
-        <ListItemButton component="a" href={materialDidatico} target="_blank" rel="noopener" sx={itemSx}>
-          <ListItemIcon><MenuBookOutlined /></ListItemIcon>
-          <ListItemText primary="Material didático" />
-          <ArrowOutward sx={{ fontSize: 18, color: 'text.secondary' }} />
-        </ListItemButton>
-      </List>
 
       <Box sx={{ mt: 'auto', px: 2.5, pb: 2 }}>
         <Box sx={{ height: '1px', background: aiGradient, opacity: 0.5, mb: 2 }} />
