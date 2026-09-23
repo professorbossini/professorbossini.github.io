@@ -8,7 +8,7 @@ Site pessoal publicado em [professorbossini.dev](https://professorbossini.dev).
 
 - [React](https://react.dev) + [Vite](https://vite.dev)
 - [MUI (Material UI)](https://mui.com) com tema Material 3 próprio, claro e escuro
-- SPA com dock de navegação no estilo macOS e rotas por hash (`#/formacao`), sem precisar de configuração no GitHub Pages
+- SPA com gaveta de navegação e rotas por hash (`#/formacao`), sem precisar de configuração no GitHub Pages
 - Fontes Google Sans Flex e Google Sans Code
 
 ## Rodando localmente
@@ -24,9 +24,9 @@ npm run preview  # serve o build localmente
 
 - `src/data.js` — textos, links, formação, certificações e fotos (edite aqui o conteúdo)
 - `src/theme.js` — paleta, gradiente, tipografia e curvas de movimento
-- `src/secoes.js` — itens do dock e a seção que cada um exibe
+- `src/secoes.js` — itens do menu lateral e a seção que cada um exibe
 - `src/material.js` — catálogo das pastas do pCloud (nome, categoria e ícone de cada uma)
-- `src/components/` — seções e navegação (dock)
+- `src/components/` — seções e navegação (gaveta lateral)
 - `public/` — imagens, favicon e `CNAME`
 
 ## Material didático
