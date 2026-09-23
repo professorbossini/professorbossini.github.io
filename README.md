@@ -25,8 +25,16 @@ npm run preview  # serve o build localmente
 - `src/data.js` — textos, links, formação, certificações e fotos (edite aqui o conteúdo)
 - `src/theme.js` — paleta, gradiente, tipografia e curvas de movimento
 - `src/secoes.js` — itens do menu lateral e a seção que cada um exibe
+- `src/material.js` — catálogo das pastas do pCloud (nome, categoria e ícone de cada uma)
 - `src/components/` — seções e navegação (gaveta lateral)
 - `public/` — imagens, favicon e `CNAME`
+
+## Material didático
+
+A página `#/material` lê a lista de pastas direto da API pública do pCloud a cada visita, então pastas
+novas aparecem sozinhas, com um nome derivado do nome da pasta e um ícone genérico. Para dar a elas um
+nome bonito, categoria e ícone, adicione uma entrada em `catalogo` no `src/material.js`. Logos de
+tecnologias vêm do [Devicon](https://devicon.dev).
 
 ## Deploy
 
