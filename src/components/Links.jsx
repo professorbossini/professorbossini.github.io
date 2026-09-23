@@ -58,7 +58,7 @@ export default function Links() {
                       sx={{
                         width: 44,
                         height: 44,
-                        borderRadius: 3,
+                        borderRadius: '14px',
                         display: 'grid',
                         placeItems: 'center',
                         bgcolor: 'var(--mui-palette-surface-containerHigh)',

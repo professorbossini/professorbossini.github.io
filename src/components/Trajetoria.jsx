@@ -56,7 +56,7 @@ export default function Trajetoria() {
                       minWidth: 40,
                       textAlign: 'center',
                       py: 0.25,
-                      borderRadius: 1,
+                      borderRadius: '6px',
                       bgcolor: 'var(--mui-palette-surface-containerHigh)',
                       color: 'primary.main',
                     }}
