@@ -22,7 +22,8 @@ export const certificacoes = [
 export const areas = ['Inteligência Artificial', 'Análise de Algoritmos', 'Computação em Nuvem', 'DevOps', 'Desenvolvimento de Software']
 
 export const fotos = [
-  { src: '/images/palco-roxo.jpg', alt: 'Rodrigo tocando guitarra em um palco com luz roxa' },
+  // foto em pé: no celular ela vira um quadro largo, então o corte parte do topo para não cortar a cabeça
+  { src: '/images/palco-roxo.jpg', alt: 'Rodrigo tocando guitarra em um palco com luz roxa', posicao: 'center 12%' },
   { src: '/images/musica-1.jpg', alt: 'Rodrigo tocando guitarra em um show' },
   { src: '/images/musica-3.jpg', alt: 'Rodrigo cantando e tocando violão' },
   { src: '/images/musica-4.jpg', alt: 'Rodrigo tocando guitarra roxa em um ensaio' },

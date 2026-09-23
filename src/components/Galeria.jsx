@@ -50,7 +50,7 @@ export default function Galeria() {
                 '&:hover img, &:focus-visible img': { transform: 'scale(1.06)', filter: 'saturate(1.1)' },
               }}
             >
-              <img src={foto.src} alt={foto.alt} loading="lazy" />
+              <img src={foto.src} alt={foto.alt} loading="lazy" style={{ objectPosition: foto.posicao }} />
             </ButtonBase>
           </Reveal>
         ))}
