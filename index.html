@@ -7,6 +7,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,300..700&family=Google+Sans+Code:wght@400..500&display=swap" rel="stylesheet" />
     <title>Rodrigo Bossini — Professor e Desenvolvedor</title>
+    <meta name="description" content="Rodrigo Bossini — professor universitário de Algoritmos, Computação em Nuvem (AWS) e DevOps. Material didático, redes e contato." />
+    <meta name="theme-color" content="#f8fafd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0f12" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://professorbossini.dev/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://professorbossini.dev/" />
+    <meta property="og:title" content="Rodrigo Bossini" />
+    <meta property="og:description" content="Professor universitário e desenvolvedor de software. Algoritmos, Cloud, DevOps e IA." />
+    <meta property="og:image" content="https://professorbossini.dev/images/perfil.jpg" />
+    <meta name="twitter:card" content="summary" />
+
+    <script>
+      // Aplica o tema salvo antes do React carregar, para evitar o flash de tema errado.
+      try {
+        var modo = localStorage.getItem('mui-mode') || 'system'
+        if (modo === 'system') modo = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-' + modo, '')
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
