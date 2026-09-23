@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined'
 import LinkedIn from '@mui/icons-material/LinkedIn'
 import { aiGradient } from '../theme'
@@ -6,46 +6,37 @@ import { links, materialDidatico, topicos } from '../data'
 import PromptTicker from './PromptTicker'
 import Reveal from './Reveal'
 
-function GradientAvatar() {
+function FotoPerfil() {
   return (
     <Box
       sx={{
         position: 'relative',
-        width: 168,
-        height: 168,
-        display: 'grid',
-        placeItems: 'center',
-        // anel em gradiente girando, como um indicador de "pensando"
+        width: 176,
+        height: 214,
+        // brilho suave em gradiente atrás da foto
         '&::before': {
           content: '""',
           position: 'absolute',
-          inset: 0,
-          borderRadius: '50%',
-          background: 'conic-gradient(from 0deg, #22c3ee, #4f7cff, #9b6bff, #ff6b9a, #22c3ee)',
-          '@keyframes spin': { to: { transform: 'rotate(360deg)' } },
-          animation: 'spin 8s linear infinite',
-          '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
-        },
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          inset: -12,
-          borderRadius: '50%',
+          inset: -16,
+          borderRadius: '40px',
           background: aiGradient,
-          filter: 'blur(28px)',
-          opacity: 0.35,
+          filter: 'blur(32px)',
+          opacity: 0.3,
           zIndex: -1,
         },
       }}
     >
-      <Avatar
+      <Box
+        component="img"
         src="/images/perfil.jpg"
         alt="Rodrigo Bossini"
         sx={{
-          width: 156,
-          height: 156,
-          border: '4px solid',
-          borderColor: 'background.default',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          borderRadius: '28px',
+          display: 'block',
+          boxShadow: '0 12px 40px var(--mui-palette-surface-glow)',
         }}
       />
     </Box>
@@ -56,7 +47,7 @@ export default function Hero() {
   return (
     <Stack component="section" spacing={4} sx={{ alignItems: 'center', textAlign: 'center' }}>
       <Reveal>
-        <GradientAvatar />
+        <FotoPerfil />
       </Reveal>
 
       <Reveal delay={100}>
