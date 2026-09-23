@@ -23,3 +23,11 @@ export const certificacoes = [
 ]
 
 export const areas = ['Análise de Algoritmos', 'Computação em Nuvem', 'DevOps', 'Desenvolvimento de Software']
+
+export const fotos = [
+  { src: '/images/palco-roxo.jpg', alt: 'Rodrigo tocando guitarra em um palco com luz roxa' },
+  { src: '/images/musica-1.jpg', alt: 'Rodrigo tocando guitarra em um show' },
+  { src: '/images/musica-3.jpg', alt: 'Rodrigo cantando e tocando violão' },
+  { src: '/images/musica-4.jpg', alt: 'Rodrigo tocando guitarra roxa em um ensaio' },
+  { src: '/images/musica-5.jpg', alt: 'Rodrigo tocando guitarra em um evento' },
+]

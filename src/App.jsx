@@ -6,6 +6,8 @@ import AuroraBackground from './components/AuroraBackground'
 import Hero from './components/Hero'
 import Links from './components/Links'
 import Trajetoria from './components/Trajetoria'
+import Galeria from './components/Galeria'
+import Rodape from './components/Rodape'
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
           <Hero />
           <Links />
           <Trajetoria />
+          <Galeria />
+          <Rodape />
         </Stack>
       </Container>
     </ThemeProvider>
