@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -10,6 +10,9 @@ import Navegacao from './components/Navegacao'
 import useHashRoute from './useHashRoute'
 import { idsSecoes, secoes } from './secoes'
 
+// leitor de codelab em tela cheia (#/codelabs/<id>/<passo>), carregado sob demanda
+const CodelabViewer = lazy(() => import('./components/codelabs/CodelabViewer'))
+
 const LARGURA_GAVETA = 300
 
 const fundoGaveta = {
@@ -20,19 +23,32 @@ const fundoGaveta = {
 }
 
 export default function App() {
-  const [rota, navegar] = useHashRoute(idsSecoes, 'inicio')
+  const [rota, navegar, parametros] = useHashRoute(idsSecoes, 'inicio')
+  const [codelabId, passo] = rota === 'codelabs' ? parametros : []
   const [gavetaAberta, setGavetaAberta] = useState(false)
   const secao = secoes.find((s) => s.id === rota)
   const Secao = secao.componente
 
   useEffect(() => {
+    if (codelabId) return // o leitor define o próprio título
     document.title = rota === 'inicio' ? 'Rodrigo Bossini — Professor e Desenvolvedor' : `${secao.rotulo} · Rodrigo Bossini`
     window.scrollTo(0, 0)
-  }, [rota, secao])
+  }, [rota, secao, codelabId])
 
   const irPara = (id) => {
     navegar(id)
     setGavetaAberta(false)
+  }
+
+  if (codelabId) {
+    return (
+      <ThemeProvider theme={theme} defaultMode="dark">
+        <CssBaseline enableColorScheme />
+        <Suspense fallback={null}>
+          <CodelabViewer id={codelabId} passo={passo} />
+        </Suspense>
+      </ThemeProvider>
+    )
   }
 
   return (
@@ -92,7 +108,7 @@ export default function App() {
         }}
       >
         {/* key força a remontagem, reiniciando as animações de entrada a cada troca de seção */}
-        <Container key={rota} maxWidth="md" sx={{ my: 'auto' }}>
+        <Container key={rota} maxWidth={secao.largura ?? 'md'} sx={{ my: 'auto' }}>
           <Suspense fallback={null}>
             <Secao />
           </Suspense>
