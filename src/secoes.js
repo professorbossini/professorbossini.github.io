@@ -5,6 +5,7 @@ import SchoolOutlined from '@mui/icons-material/SchoolOutlined'
 import MusicNoteOutlined from '@mui/icons-material/MusicNoteOutlined'
 import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined'
 import ScienceOutlined from '@mui/icons-material/ScienceOutlined'
+import RocketLaunchOutlined from '@mui/icons-material/RocketLaunchOutlined'
 import Hero from './components/Hero'
 import Links from './components/Links'
 import Trajetoria from './components/Trajetoria'
@@ -13,6 +14,7 @@ import Galeria from './components/Galeria'
 // A página de material é carregada só quando aberta (ícones e lógica de busca pesam no bundle)
 const Material = lazy(() => import('./components/Material'))
 const CodelabsHome = lazy(() => import('./components/codelabs/CodelabsHome'))
+const BossiniFaz = lazy(() => import('./components/BossiniFaz'))
 
 export const secoes = [
   { id: 'inicio', rotulo: 'Início', icone: HomeOutlined, componente: Hero },
@@ -20,6 +22,7 @@ export const secoes = [
   { id: 'codelabs', rotulo: 'Bossini Codelabs', icone: ScienceOutlined, componente: CodelabsHome, largura: 'lg' },
   { id: 'redes', rotulo: 'Redes sociais', icone: ShareOutlined, componente: Links },
   { id: 'formacao', rotulo: 'Formação', icone: SchoolOutlined, componente: Trajetoria },
+  { id: 'bossini-faz', rotulo: 'Bossini faz', icone: RocketLaunchOutlined, componente: BossiniFaz, largura: 'lg' },
   { id: 'musica', rotulo: 'Fora da sala de aula', icone: MusicNoteOutlined, componente: Galeria },
 ]
 

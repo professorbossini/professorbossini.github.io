@@ -1,3 +1,4 @@
+import logoGoogle from 'devicon/icons/google/google-original.svg'
 import logoAws from './assets/logos/aws.svg'
 import logoSun from './assets/logos/sun.svg'
 import logoUnifieo from './assets/logos/unifieo.png'
@@ -13,13 +14,20 @@ export const links = {
 }
 
 export const formacao = [
-  { titulo: 'Mestre em Ciência da Computação', instituicao: 'Universidade de São Paulo (USP)', logo: logoUsp },
+  {
+    titulo: 'Mestre em Ciência da Computação',
+    instituicao: 'Universidade de São Paulo (USP)',
+    logo: logoUsp,
+    dissertacao:
+      'Construção do livro de ofertas a partir de dados de alta frequência e um algoritmo para predição de valores baseado em agrupamento e regressão linear (2013)',
+  },
   { titulo: 'Bacharel em Ciência da Computação', instituicao: 'Centro Universitário FIEO (UNIFIEO)', logo: logoUnifieo },
 ]
 
 export const certificacoes = [
   { nome: 'AWS Certified AI Practitioner', emissor: 'AWS', logo: logoAws },
   { nome: 'AWS Certified Cloud Practitioner', emissor: 'AWS', logo: logoAws },
+  { nome: 'Google Certified Educator Level 2', emissor: 'Google', logo: logoGoogle },
   { nome: 'Sun Certified Java Programmer', emissor: 'Sun', logo: logoSun },
   { nome: 'Sun Certified Web Component Developer', emissor: 'Sun', logo: logoSun },
 ]
