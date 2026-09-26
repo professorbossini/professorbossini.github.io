@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import MenuIcon from '@mui/icons-material/Menu'
 import theme from './theme'
 import ColorModeToggle from './components/ColorModeToggle'
+import { PoweredByFaisca } from './components/brand/PoweredByFaisca'
 import AuroraBackground from './components/AuroraBackground'
 import Navegacao from './components/Navegacao'
 import useHashRoute from './useHashRoute'
@@ -97,6 +98,9 @@ export default function App() {
           </Suspense>
         </Container>
       </Box>
+
+      {/* selo "feito com Faísca", só na página inicial */}
+      {rota === 'inicio' && <PoweredByFaisca />}
     </ThemeProvider>
   )
 }
