@@ -20,7 +20,7 @@ import EventOutlined from '@mui/icons-material/EventOutlined'
 import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined'
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
 import AppsOutlined from '@mui/icons-material/AppsOutlined'
-import { codelabs, formatarDuracao, lerProgresso } from '../../codelabs'
+import { codelabs, compararRecentes, formatarDuracao, lerProgresso } from '../../codelabs'
 import { categoriasDe, categorias } from '../../codelabs/categorias'
 import { transition } from '../../theme'
 import Reveal from '../Reveal'
@@ -251,9 +251,9 @@ export default function CodelabsHome({ parametros = [] }) {
       .filter((c) => !categoria || c.categorias.includes(categoria))
       .filter((c) => !termo || normalizar([c.titulo, c.resumo, ...c.tags].join(' ')).includes(termo))
       .sort((a, b) => {
-        if (ordem === 'az') return a.titulo.localeCompare(b.titulo, 'pt')
+        if (ordem === 'az') return a.titulo.localeCompare(b.titulo, 'pt', { numeric: true })
         if (ordem === 'duracao') return a.duracaoTotal - b.duracaoTotal
-        return (b.atualizado ?? 0) - (a.atualizado ?? 0)
+        return compararRecentes(a, b)
       })
   }, [categoria, busca, ordem])
 

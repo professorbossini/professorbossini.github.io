@@ -6,9 +6,27 @@ import { lerCodelab } from './parser'
 export { lerCodelab }
 
 // Índice leve (metadados e títulos/durações dos passos), gerado no build pelo plugin do vite.config.js
-export const codelabs = indice
-  .map((c) => ({ ...c, atualizado: c.atualizado ? new Date(`${c.atualizado}T12:00:00`) : null }))
-  .sort((a, b) => (b.atualizado ?? 0) - (a.atualizado ?? 0))
+// Séries numeradas pelo id: serverless-01-api-gateway, java-gui-02-login-mysql, dart-introducao-parte-3...
+const SERIE = /^(.+?)-(?:parte-)?(\d+)(?:-|$)/
+function serieDe(id) {
+  const [, serie, parte] = id.match(SERIE) ?? []
+  return serie ? { serie, parte: Number(parte) } : { serie: id, parte: 0 }
+}
+
+const lista = indice.map((c) => ({
+  ...c,
+  ...serieDe(c.id),
+  atualizado: c.atualizado ? new Date(`${c.atualizado}T12:00:00`) : null,
+}))
+
+// Uma série fica junta, na data da parte mais recente, e as partes seguem em ordem crescente
+const dataDaSerie = {}
+for (const c of lista) dataDaSerie[c.serie] = Math.max(dataDaSerie[c.serie] ?? 0, c.atualizado ?? 0)
+
+export const compararRecentes = (a, b) =>
+  dataDaSerie[b.serie] - dataDaSerie[a.serie] || a.serie.localeCompare(b.serie) || a.parte - b.parte
+
+export const codelabs = lista.sort(compararRecentes)
 
 export const buscarCodelab = (id) => codelabs.find((c) => c.id === id)
 

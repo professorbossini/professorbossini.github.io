@@ -193,7 +193,8 @@ function Trilhas() {
 }
 
 function Novidades() {
-  const recentes = [...codelabs].filter((c) => c.atualizado).sort((a, b) => b.atualizado - a.atualizado).slice(0, 6)
+  // a lista já vem das mais recentes para as mais antigas, com as séries em ordem crescente
+  const recentes = codelabs.filter((c) => c.atualizado).slice(0, 6)
   return (
     <Box component="section" aria-labelledby="titulo-novidades">
       <TituloSecao icone={NewReleasesOutlined}>
