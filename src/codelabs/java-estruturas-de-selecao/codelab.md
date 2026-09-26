@@ -492,10 +492,10 @@ Duration: 30:00
     | média < 2 | Reprovado. Nos vemos semestre que vem. |
 
 10. Escreva um programa que oferece para o usuário as seguintes opções:
-    * 1 – Misto quente R$5,50
-    * 2 – Salada Chinesa R$10,20
-    * 3 – Suco de Laranja R$4,00
-    * 4 – Suco de Manga R$3,50
+    * 1 – Misto quente R\$5,50
+    * 2 – Salada Chinesa R\$10,20
+    * 3 – Suco de Laranja R\$4,00
+    * 4 – Suco de Manga R\$3,50
 
     Se o usuário digitar qualquer número diferente de 1, 2, 3 ou 4, o seu programa deve exibir uma mensagem de erro e terminar. Caso contrário, se o usuário escolher alguma bebida, o programa deve exibir "tenha um excelente drink, vai lhe custar" seguido do valor da bebida. Se o usuário escolher alguma comida, o programa deve exibir "bom apetite, vai lhe custar" seguido do valor da comida.
 11. Faça um programa que lê os seguintes dados:
