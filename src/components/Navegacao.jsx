@@ -20,7 +20,26 @@ const itemSx = {
 export default function Navegacao({ rota, onNavegar }) {
   return (
     <Stack sx={{ height: '100%', p: 1.5 }}>
-      <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', px: 1.5, py: 2.5 }}>
+      {/* foto e nome levam para a página inicial */}
+      <Stack
+        component="a"
+        href="/"
+        onClick={onNavegar}
+        aria-label="Rodrigo Bossini, página inicial"
+        direction="row"
+        spacing={1.5}
+        sx={(theme) => ({
+          alignItems: 'center',
+          px: 1.5,
+          py: 2.5,
+          borderRadius: '20px',
+          color: 'inherit',
+          textDecoration: 'none',
+          transition: transition('background-color', 'short4'),
+          '&:hover': { bgcolor: theme.alpha(theme.vars.palette.primary.main, 0.08) },
+          '&:focus-visible': { outline: `2px solid ${theme.vars.palette.primary.main}`, outlineOffset: -2 },
+        })}
+      >
         <Box
           component="img"
           src="/images/perfil.webp"
