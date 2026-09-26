@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Link, Tooltip, Typography } from '@mui/material';
 import { duration, easing } from '../../theme/motion';
+import { BossiniMark } from './BossiniMark';
 import { FaiscaMark } from './FaiscaMark';
 
 export const FAISCA_REPO_URL = 'https://github.com/professorbossini/faisca-auth-starter';
@@ -13,13 +14,13 @@ export function PoweredByFaisca({ sx }) {
   const [hover, setHover] = useState(false);
 
   return (
-    <Tooltip title="O visual deste site vem do tema Faísca. Ver no GitHub" placement="top-end">
+    <Tooltip title="O visual deste site vem do tema Faísca, de Rodrigo Bossini. Ver no GitHub" placement="top-end">
       <Link
         href={FAISCA_REPO_URL}
         target="_blank"
         rel="noopener noreferrer"
         underline="none"
-        aria-label="Feito com Faísca (abre o repositório no GitHub)"
+        aria-label="Feito com Faísca, de Rodrigo Bossini (abre o repositório no GitHub)"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onFocus={() => setHover(true)}
@@ -104,6 +105,7 @@ export function PoweredByFaisca({ sx }) {
             Faísca
           </Box>
         </Typography>
+        <BossiniMark size={22} />
       </Link>
     </Tooltip>
   );
