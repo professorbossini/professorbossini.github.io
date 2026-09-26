@@ -4,12 +4,9 @@ import {
   Button,
   Card,
   Chip,
+  ButtonBase,
   Grid,
   InputAdornment,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Stack,
   TextField,
   ToggleButton,
@@ -52,6 +49,85 @@ function LogoCategoria({ categoria, tamanho = 40 }) {
       }}
     >
       <Box component="img" src={categoria.logo} alt="" sx={{ width: '72%', height: '72%', objectFit: 'contain' }} />
+    </Box>
+  )
+}
+
+// Menu lateral estreito com as categorias, no estilo "navigation rail" do Material 3:
+// ícone em cima, nome embaixo e o destaque em pílula no item ativo. No celular vira uma fileira.
+function TrilhoCategorias({ opcoes, atual, onEscolher }) {
+  return (
+    <Box
+      component="nav"
+      aria-label="Categorias de codelabs"
+      sx={{
+        display: 'flex',
+        flexDirection: { xs: 'row', md: 'column' },
+        gap: { xs: 1, md: 1.5 },
+        overflowX: { xs: 'auto', md: 'visible' },
+        width: { md: 88 },
+        py: { md: 1.5 },
+        borderRadius: '20px',
+        border: { md: '1px solid' },
+        borderColor: { md: 'divider' },
+        bgcolor: { md: 'background.paper' },
+      }}
+    >
+      <Typography
+        variant="overline"
+        color="text.secondary"
+        sx={{ display: { xs: 'none', md: 'block' }, textAlign: 'center', fontSize: '0.625rem' }}
+      >
+        Categorias
+      </Typography>
+      {opcoes.map((o) => {
+        const ativo = atual === o.chave
+        return (
+          <ButtonBase
+            key={o.nome}
+            onClick={() => onEscolher(o.chave)}
+            aria-pressed={ativo}
+            aria-label={`${o.nome} (${o.total} ${o.total === 1 ? 'codelab' : 'codelabs'})`}
+            sx={{
+              flexDirection: 'column',
+              gap: 0.5,
+              px: 1,
+              py: 0.5,
+              minWidth: 72,
+              borderRadius: '16px',
+              flexShrink: 0,
+              '&:hover .indicador': { bgcolor: ativo ? 'primary.container' : 'action.hover' },
+            }}
+          >
+            <Box
+              className="indicador"
+              sx={{
+                width: 56,
+                height: 32,
+                borderRadius: 99,
+                display: 'grid',
+                placeItems: 'center',
+                bgcolor: ativo ? 'primary.container' : 'transparent',
+                color: ativo ? 'primary.onContainer' : 'text.secondary',
+                transition: transition(['background-color', 'color'], 'short4'),
+              }}
+            >
+              {o.categoria ? <LogoCategoria categoria={o.categoria} tamanho={24} /> : <AppsOutlined fontSize="small" />}
+            </Box>
+            <Typography
+              sx={{
+                fontSize: '0.75rem',
+                fontWeight: ativo ? 700 : 500,
+                color: ativo ? 'text.primary' : 'text.secondary',
+                lineHeight: 1.2,
+                textAlign: 'center',
+              }}
+            >
+              {o.nome}
+            </Typography>
+          </ButtonBase>
+        )
+      })}
     </Box>
   )
 }
@@ -187,51 +263,12 @@ export default function CodelabsHome() {
         </Typography>
       </Reveal>
 
-      <Grid container spacing={3}>
-        {/* categorias: coluna à esquerda no desktop, chips no celular */}
-        <Grid size={{ xs: 12, md: 3 }}>
-          <Reveal delay={60}>
-            <Typography variant="overline" color="text.secondary" component="p" sx={{ mb: 1, display: { xs: 'none', md: 'block' } }}>
-              Categorias
-            </Typography>
-            <List component="nav" aria-label="Categorias" sx={{ display: { xs: 'none', md: 'block' }, p: 0 }}>
-              {opcoes.map((o) => (
-                <ListItemButton
-                  key={o.nome}
-                  selected={categoria === o.chave}
-                  onClick={() => setCategoria(o.chave)}
-                  sx={(theme) => ({
-                    borderRadius: 99,
-                    mb: 0.5,
-                    '&.Mui-selected, &.Mui-selected:hover': {
-                      bgcolor: theme.vars.palette.primary.container,
-                      color: theme.vars.palette.primary.onContainer,
-                    },
-                  })}
-                >
-                  <ListItemIcon sx={{ mr: 1.5 }}>
-                    {o.categoria ? <LogoCategoria categoria={o.categoria} tamanho={28} /> : <AppsOutlined />}
-                  </ListItemIcon>
-                  <ListItemText primary={o.nome} />
-                  <Typography variant="caption" color="text.secondary">{o.total}</Typography>
-                </ListItemButton>
-              ))}
-            </List>
-            <Stack direction="row" useFlexGap spacing={1} sx={{ display: { xs: 'flex', md: 'none' }, flexWrap: 'wrap' }}>
-              {opcoes.map((o) => (
-                <Chip
-                  key={o.nome}
-                  label={`${o.nome} · ${o.total}`}
-                  onClick={() => setCategoria(o.chave)}
-                  color={categoria === o.chave ? 'primary' : 'default'}
-                  variant={categoria === o.chave ? 'soft' : 'outlined'}
-                />
-              ))}
-            </Stack>
-          </Reveal>
-        </Grid>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 2, md: 4 }, alignItems: 'flex-start' }}>
+        <Reveal delay={60} sx={{ position: { md: 'sticky' }, top: { md: 24 }, flexShrink: 0, width: { xs: '100%', md: 'auto' } }}>
+          <TrilhoCategorias opcoes={opcoes} atual={categoria} onEscolher={setCategoria} />
+        </Reveal>
 
-        <Grid size={{ xs: 12, md: 9 }}>
+        <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
           <Reveal delay={120}>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mb: 3, alignItems: { sm: 'center' } }}>
               <TextField
@@ -279,8 +316,8 @@ export default function CodelabsHome() {
               </Grid>
             )}
           </Reveal>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
       <AvisoFormato />
       {aviso}
     </Box>
