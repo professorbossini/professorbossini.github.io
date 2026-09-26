@@ -9,6 +9,13 @@ import xml from 'highlight.js/lib/languages/xml'
 import ini from 'highlight.js/lib/languages/ini'
 import plaintext from 'highlight.js/lib/languages/plaintext'
 import yaml from 'highlight.js/lib/languages/yaml'
+import java from 'highlight.js/lib/languages/java'
+import python from 'highlight.js/lib/languages/python'
+import dart from 'highlight.js/lib/languages/dart'
+import typescript from 'highlight.js/lib/languages/typescript'
+import graphql from 'highlight.js/lib/languages/graphql'
+import dockerfile from 'highlight.js/lib/languages/dockerfile'
+import markedKatex from 'marked-katex-extension'
 
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('bash', bash)
@@ -19,6 +26,18 @@ hljs.registerLanguage('html', xml)
 hljs.registerLanguage('ini', ini)
 hljs.registerLanguage('text', plaintext)
 hljs.registerLanguage('yaml', yaml)
+hljs.registerLanguage('java', java)
+hljs.registerLanguage('python', python)
+hljs.registerLanguage('dart', dart)
+hljs.registerLanguage('typescript', typescript)
+hljs.registerLanguage('graphql', graphql)
+hljs.registerLanguage('dockerfile', dockerfile)
+hljs.registerLanguage('xml', xml)
+hljs.registerAliases(['jsx', 'js'], { languageName: 'javascript' })
+hljs.registerAliases(['tsx', 'ts'], { languageName: 'typescript' })
+hljs.registerAliases(['plaintext', 'txt'], { languageName: 'text' })
+hljs.registerAliases(['sh', 'shell', 'console'], { languageName: 'bash' })
+hljs.registerAliases(['py'], { languageName: 'python' })
 
 const escapar = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -48,5 +67,7 @@ export function renderizarPasso(markdown, codelabId) {
       },
     },
   })
+  // matemática em LaTeX: $...$ no texto e $$...$$ em bloco
+  marked.use(markedKatex({ throwOnError: false, nonStandard: true }))
   return marked.parse(markdown)
 }

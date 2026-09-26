@@ -147,4 +147,27 @@ export const conteudoSx = (theme) => ({
     bgcolor: theme.vars.palette.warning.container,
     borderColor: theme.vars.palette.warning.main,
   },
+
+  // respostas recolhíveis (<details><summary>Ver resposta</summary>...)
+  '& details': {
+    my: 2,
+    borderRadius: '12px',
+    border: `1px solid ${theme.vars.palette.divider}`,
+    bgcolor: theme.vars.palette.background.subtle,
+    '& > *:not(summary)': { mx: 2.5 },
+    '&[open] > summary': { borderBottom: `1px solid ${theme.vars.palette.divider}` },
+  },
+  '& summary': {
+    cursor: 'pointer',
+    px: 2.5,
+    py: 1.25,
+    fontWeight: 600,
+    color: theme.vars.palette.primary.main,
+    listStylePosition: 'inside',
+    '&:focus-visible': { outline: `2px solid ${theme.vars.palette.primary.main}`, borderRadius: '12px' },
+  },
+
+  // matemática (KaTeX)
+  '& .katex-display': { overflowX: 'auto', overflowY: 'hidden', py: 1 },
+  '& .katex': { fontSize: '1.08em' },
 })
