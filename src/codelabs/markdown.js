@@ -8,6 +8,7 @@ import css from 'highlight.js/lib/languages/css'
 import xml from 'highlight.js/lib/languages/xml'
 import ini from 'highlight.js/lib/languages/ini'
 import plaintext from 'highlight.js/lib/languages/plaintext'
+import yaml from 'highlight.js/lib/languages/yaml'
 
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('bash', bash)
@@ -17,6 +18,7 @@ hljs.registerLanguage('css', css)
 hljs.registerLanguage('html', xml)
 hljs.registerLanguage('ini', ini)
 hljs.registerLanguage('text', plaintext)
+hljs.registerLanguage('yaml', yaml)
 
 const escapar = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
