@@ -1,7 +1,7 @@
 // Contador de visitas do GoatCounter: sem cookies e sem dados pessoais, por isso não precisa de
 // aviso de consentimento. Para ativar, crie a conta em https://www.goatcounter.com e coloque aqui o
 // código escolhido (o "xxx" de xxx.goatcounter.com). Vazio, nada é carregado.
-export const GOATCOUNTER = ''
+export const GOATCOUNTER = 'professorbossini'
 
 let script
 
