@@ -1049,7 +1049,7 @@ Crie um programa que armazene um número inteiro de três algarismos e produza o
 
 **Exercício 3 - Troco em notas e moedas**
 
-Uma máquina precisa devolver um determinado valor inteiro em reais utilizando a menor quantidade possível de notas e moedas. Considere notas de R$ 100, R$ 50, R$ 20, R$ 10, R$ 5 e R$ 2, além de moedas de R$ 1.
+Uma máquina precisa devolver um determinado valor inteiro em reais utilizando a menor quantidade possível de notas e moedas. Considere notas de R\$ 100, R\$ 50, R\$ 20, R\$ 10, R\$ 5 e R\$ 2, além de moedas de R\$ 1.
 
 ```dart
 int valor = 387;
