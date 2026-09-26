@@ -21,7 +21,7 @@ import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined'
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
 import AppsOutlined from '@mui/icons-material/AppsOutlined'
 import { codelabs, formatarDuracao, lerProgresso } from '../../codelabs'
-import { categoriaDe, categorias } from '../../codelabs/categorias'
+import { categoriasDe, categorias } from '../../codelabs/categorias'
 import { transition } from '../../theme'
 import Reveal from '../Reveal'
 import { BossiniMark } from '../brand/BossiniMark'
@@ -132,8 +132,29 @@ function TrilhoCategorias({ opcoes, atual, onEscolher }) {
   )
 }
 
+// Tags com ícone e nome de cada categoria a que o codelab pertence
+function TagsCategorias({ categorias: lista }) {
+  if (!lista.length) return null
+  return (
+    <Stack direction="row" useFlexGap spacing={0.75} sx={{ flexWrap: 'wrap' }} aria-label="Categorias">
+      {lista.map((c) => (
+        <Chip
+          key={c.nome}
+          size="small"
+          variant="soft"
+          color="neutral"
+          icon={<LogoCategoria categoria={c} tamanho={18} />}
+          label={c.nome}
+          sx={{ pl: 0.5, '& .MuiChip-icon': { ml: 0 } }}
+        />
+      ))}
+    </Stack>
+  )
+}
+
 function CardCodelab({ codelab, onBaixar, baixando }) {
-  const categoria = categoriaDe(codelab)
+  const cats = categoriasDe(codelab)
+  const categoria = cats[0] ?? null
   const progresso = lerProgresso(codelab.id)
   const url = `#/codelabs/${codelab.id}/${progresso || 1}`
 
@@ -167,15 +188,18 @@ function CardCodelab({ codelab, onBaixar, baixando }) {
             : 'var(--site-gradiente)',
         }}
       >
-        <LogoCategoria categoria={categoria} tamanho={64} />
-        <Chip
-          label={categoria?.nome ?? 'Codelab'}
-          size="small"
-          sx={{ position: 'absolute', top: 12, left: 12, bgcolor: 'rgba(255,255,255,0.9)', color: '#1C1433', fontWeight: 600 }}
-        />
+        {/* logos de todas as categorias do codelab, lado a lado */}
+        <Stack direction="row" spacing={1.5}>
+          {cats.length ? (
+            cats.map((c) => <LogoCategoria key={c.nome} categoria={c} tamanho={64} />)
+          ) : (
+            <LogoCategoria categoria={null} tamanho={64} />
+          )}
+        </Stack>
       </Box>
 
       <Stack spacing={1.5} sx={{ p: 2.5, flexGrow: 1 }}>
+        <TagsCategorias categorias={cats} />
         <Typography variant="h6" component="h3" sx={{ lineHeight: 1.3 }}>
           {codelab.titulo}
         </Typography>
