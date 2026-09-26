@@ -4,6 +4,9 @@ import '@fontsource/google-sans-code/400.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
+import { converterHashAntigo } from './useRota'
+
+converterHashAntigo()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -7,10 +7,13 @@ import ColorModeToggle from './components/ColorModeToggle'
 import { PoweredByFaisca } from './components/brand/PoweredByFaisca'
 import AuroraBackground from './components/AuroraBackground'
 import Navegacao from './components/Navegacao'
-import useHashRoute from './useHashRoute'
-import { idsSecoes, secoes } from './secoes'
+import useRota from './useRota'
+import { caminhoDe, idsSecoes, secoes } from './secoes'
+import { definirMeta, paginas, tituloDaPagina, tituloDaTrilha } from './paginas'
+import { buscarTrilha } from './codelabs/trilhas'
+import { registrarVisita } from './analytics'
 
-// leitor de codelab em tela cheia (#/codelabs/<id>/<passo>), carregado sob demanda
+// leitor de codelab em tela cheia (/codelabs/<id>/<passo>), carregado sob demanda
 const CodelabViewer = lazy(() => import('./components/codelabs/CodelabViewer'))
 
 const LARGURA_GAVETA = 300
@@ -23,23 +26,30 @@ const fundoGaveta = {
 }
 
 export default function App() {
-  const [rota, navegar, parametros] = useHashRoute(idsSecoes, 'inicio')
-  // #/codelabs/<id>/<passo> abre o leitor; #/codelabs/trilha/<id> fica na página de codelabs
+  const [rota, parametros] = useRota(idsSecoes, 'inicio')
+  // /codelabs/<id>/<passo> abre o leitor; /codelabs/trilha/<id> fica na página de codelabs
   const [codelabId, passo] = rota === 'codelabs' && parametros[0] !== 'trilha' ? parametros : []
   const [gavetaAberta, setGavetaAberta] = useState(false)
   const secao = secoes.find((s) => s.id === rota)
   const Secao = secao.componente
 
+  const trilhaId = rota === 'codelabs' && parametros[0] === 'trilha' ? parametros[1] : null
+  const caminho = window.location.pathname
+
+  useEffect(() => registrarVisita(caminho), [caminho])
+
   useEffect(() => {
     if (codelabId) return // o leitor define o próprio título
-    document.title = rota === 'inicio' ? 'Rodrigo Bossini — Professor e Desenvolvedor' : `${secao.rotulo} · Rodrigo Bossini`
+    const trilha = trilhaId && buscarTrilha(trilhaId)
+    definirMeta(
+      trilha
+        ? { titulo: tituloDaTrilha(trilha), descricao: trilha.descricao, caminho: `/codelabs/trilha/${trilha.id}/` }
+        : { titulo: tituloDaPagina(rota), descricao: paginas[rota].descricao, caminho: caminhoDe(rota) },
+    )
     window.scrollTo(0, 0)
-  }, [rota, secao, codelabId])
+  }, [rota, codelabId, trilhaId])
 
-  const irPara = (id) => {
-    navegar(id)
-    setGavetaAberta(false)
-  }
+  const fecharGaveta = () => setGavetaAberta(false)
 
   if (codelabId) {
     return (
@@ -81,7 +91,7 @@ export default function App() {
         sx={{ display: { md: 'none' } }}
         slotProps={{ paper: { sx: { ...fundoGaveta, borderRadius: '0 28px 28px 0' } } }}
       >
-        <Navegacao rota={rota} onNavegar={irPara} />
+        <Navegacao rota={rota} onNavegar={fecharGaveta} />
       </Drawer>
 
       {/* desktop: gaveta fixa */}
@@ -90,7 +100,7 @@ export default function App() {
         sx={{ display: { xs: 'none', md: 'block' }, width: LARGURA_GAVETA, flexShrink: 0 }}
         slotProps={{ paper: { sx: { ...fundoGaveta, bgcolor: 'transparent', borderRight: '1px solid', borderColor: 'divider' } } }}
       >
-        <Navegacao rota={rota} onNavegar={irPara} />
+        <Navegacao rota={rota} />
       </Drawer>
 
       <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'fixed', top: 16, right: 16, zIndex: 10 }}>
@@ -105,7 +115,7 @@ export default function App() {
           display: 'flex',
           flexDirection: 'column',
           pt: { xs: 10, md: 6 },
-          pb: 6,
+          pb: rota === 'inicio' ? 12 : 6, // espaço para o selo fixo do Faísca no fim da página inicial
         }}
       >
         {/* key força a remontagem, reiniciando as animações de entrada a cada troca de seção */}

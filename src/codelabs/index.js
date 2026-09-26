@@ -30,6 +30,9 @@ export const codelabs = lista.sort(compararRecentes)
 
 export const buscarCodelab = (id) => codelabs.find((c) => c.id === id)
 
+// O passo 1 fica no endereço do próprio codelab, que é o que vai para o sitemap
+export const urlCodelab = (id, passo = 1) => (passo > 1 ? `/codelabs/${id}/${passo}` : `/codelabs/${id}/`)
+
 // O texto completo de cada codelab só é baixado quando ele é aberto
 const fontes = import.meta.glob('./*/codelab.md', { query: '?raw', import: 'default' })
 export async function carregarCodelab(id) {

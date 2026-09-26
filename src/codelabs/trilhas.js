@@ -1,6 +1,6 @@
 // Trilhas: sequências de codelabs recomendadas, na ordem em que devem ser feitos.
 // `icone` é a chave de uma categoria (src/codelabs/categorias.js), usada para o logo da trilha.
-// Abrem em #/codelabs/trilha/<id>.
+// Abrem em /codelabs/trilha/<id>.
 export const trilhas = [
   {
     id: 'java-do-zero',

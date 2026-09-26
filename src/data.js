@@ -8,6 +8,7 @@ export const topicos = ['Algoritmos', 'Computação em Nuvem', 'DevOps', 'Inteli
 
 export const links = {
   instagramProfessor: 'https://www.instagram.com/professorbossini',
+  instagramDirect: 'https://ig.me/m/professorbossini',
   instagramPessoal: 'https://www.instagram.com/rodrigobossini',
   linkedin: 'https://www.linkedin.com/in/rodrigobossini',
   github: 'https://github.com/professorbossini',
@@ -36,11 +37,11 @@ export const areas = ['Inteligência Artificial', 'Análise de Algoritmos', 'Com
 
 export const fotos = [
   // foto em pé: no celular ela vira um quadro largo, então o corte parte do topo para não cortar a cabeça
-  { src: '/images/palco-roxo.jpg', alt: 'Rodrigo tocando guitarra em um palco com luz roxa', posicao: 'center 12%' },
-  { src: '/images/musica-1.jpg', alt: 'Rodrigo tocando guitarra em um show' },
-  { src: '/images/musica-3.jpg', alt: 'Rodrigo cantando e tocando violão' },
-  { src: '/images/musica-4.jpg', alt: 'Rodrigo tocando guitarra roxa em um ensaio' },
-  { src: '/images/musica-5.jpg', alt: 'Rodrigo tocando guitarra em um evento' },
+  { src: '/images/palco-roxo.webp', alt: 'Rodrigo tocando guitarra em um palco com luz roxa', posicao: 'center 12%' },
+  { src: '/images/musica-1.webp', alt: 'Rodrigo tocando guitarra em um show' },
+  { src: '/images/musica-3.webp', alt: 'Rodrigo cantando e tocando violão' },
+  { src: '/images/musica-4.webp', alt: 'Rodrigo tocando guitarra roxa em um ensaio' },
+  { src: '/images/musica-5.webp', alt: 'Rodrigo tocando guitarra em um evento' },
 ]
 
 export const redes = [

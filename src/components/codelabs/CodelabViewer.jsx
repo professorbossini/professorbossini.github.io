@@ -25,7 +25,9 @@ import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined'
 import ColorModeToggle from '../ColorModeToggle'
 import { BossiniMark } from '../brand/BossiniMark'
 import AvisoFormato from './AvisoFormato'
-import { buscarCodelab, carregarCodelab, formatarDuracao, lerProgresso, registrarAcesso } from '../../codelabs'
+import { buscarCodelab, carregarCodelab, formatarDuracao, lerProgresso, registrarAcesso, urlCodelab } from '../../codelabs'
+import { irPara as irParaRota } from '../../useRota'
+import { definirMeta } from '../../paginas'
 import { renderizarPasso } from '../../codelabs/markdown'
 import { transition } from '../../theme'
 import 'katex/dist/katex.min.css'
@@ -112,7 +114,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
   }, [id])
 
   const irPara = (numero) => {
-    window.location.hash = `/codelabs/${id}/${numero}`
+    irParaRota(urlCodelab(id, numero))
     setGavetaAberta(false)
   }
 
@@ -120,7 +122,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
   useEffect(() => {
     if (!codelab) return
     window.scrollTo(0, 0)
-    document.title = `${codelab.passos[atual - 1].titulo} · ${codelab.titulo}`
+    definirMeta({ titulo: `${codelab.passos[atual - 1].titulo} · ${codelab.titulo}`, descricao: codelab.resumo, caminho: urlCodelab(codelab.id) })
     registrarAcesso(codelab.id, atual) // passo atual, mais adiantado e data, para o "continue de onde parou"
     if (atual > visitado) setVisitado(atual)
   }, [atual, codelab, visitado])
@@ -163,7 +165,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
     return (
       <Stack sx={{ minHeight: '100vh', alignItems: 'center', justifyContent: 'center', gap: 2, p: 3 }}>
         <Typography variant="h4" component="h1">Codelab não encontrado</Typography>
-        <Button variant="contained" href="#/codelabs" startIcon={<ArrowBack />}>Ver todos os codelabs</Button>
+        <Button variant="contained" href="/codelabs/" startIcon={<ArrowBack />}>Ver todos os codelabs</Button>
       </Stack>
     )
   }
@@ -179,12 +181,12 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
       <AppBar position="fixed" sx={{ zIndex: (t) => t.zIndex.drawer + 1 }}>
         <Toolbar sx={{ gap: 1 }}>
           <Tooltip title="Todos os codelabs">
-            <IconButton edge="start" href="#/codelabs" aria-label="Voltar para todos os codelabs">
+            <IconButton edge="start" href="/codelabs/" aria-label="Voltar para todos os codelabs">
               <ArrowBack />
             </IconButton>
           </Tooltip>
           <Tooltip title="Bossini Codelabs">
-            <Box component="a" href="#/codelabs" aria-label="Bossini Codelabs" sx={{ display: { xs: 'none', sm: 'block' }, mr: 0.5 }}>
+            <Box component="a" href="/codelabs/" aria-label="Bossini Codelabs" sx={{ display: { xs: 'none', sm: 'block' }, mr: 0.5 }}>
               <BossiniMark size={30} />
             </Box>
           </Tooltip>
@@ -313,7 +315,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
             Voltar
           </Button>
           {ultimo ? (
-            <Button variant="contained" size="large" href="#/codelabs" endIcon={<CheckRounded />}>
+            <Button variant="contained" size="large" href="/codelabs/" endIcon={<CheckRounded />}>
               Concluir
             </Button>
           ) : (

@@ -27,3 +27,5 @@ export const secoes = [
 ]
 
 export const idsSecoes = secoes.map((s) => s.id)
+
+export const caminhoDe = (id) => (id === 'inicio' ? '/' : `/${id}/`)

@@ -1,6 +1,6 @@
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
 import { gradiente, transition } from '../theme'
-import { secoes } from '../secoes'
+import { caminhoDe, secoes } from '../secoes'
 
 const itemSx = {
   borderRadius: 99,
@@ -23,7 +23,7 @@ export default function Navegacao({ rota, onNavegar }) {
       <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', px: 1.5, py: 2.5 }}>
         <Box
           component="img"
-          src="/images/perfil.jpg"
+          src="/images/perfil.webp"
           alt=""
           sx={{ width: 44, height: 44, borderRadius: '14px', objectFit: 'cover' }}
         />
@@ -39,7 +39,9 @@ export default function Navegacao({ rota, onNavegar }) {
             key={id}
             selected={rota === id}
             aria-current={rota === id ? 'page' : undefined}
-            onClick={() => onNavegar(id)}
+            component="a"
+            href={caminhoDe(id)}
+            onClick={onNavegar}
             sx={itemSx}
           >
             <ListItemIcon><Icone /></ListItemIcon>

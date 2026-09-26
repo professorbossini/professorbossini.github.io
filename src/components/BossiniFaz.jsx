@@ -38,6 +38,7 @@ import {
   tecnicoDeEquipes,
 } from '../bossiniFaz'
 import { brilho, gradienteTexto, monoFontFamily } from '../theme'
+import FaleComigo from './FaleComigo'
 import GlowCard from './GlowCard'
 import { Logo, Painel } from './Painel'
 import Reveal from './Reveal'
@@ -597,6 +598,8 @@ export default function BossiniFaz() {
           ))}
         </Grid>
       </Bloco>
+
+      <FaleComigo sx={{ mt: 6 }} />
     </Box>
   )
 }

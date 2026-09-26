@@ -1,10 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { Box, Button, ButtonBase, Stack, Tooltip, Typography } from '@mui/material'
 import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined'
+import ScienceOutlined from '@mui/icons-material/ScienceOutlined'
 import { brilho, gradiente, gradienteTexto, transition } from '../theme'
 import { redes, topicos } from '../data'
 import MarcaIcone from './MarcaIcone'
 import PromptTicker from './PromptTicker'
 import Reveal from './Reveal'
+
+// codelabs recentes e números: carregados depois da apresentação
+const Destaques = lazy(() => import('./Destaques'))
 
 function FotoPerfil() {
   return (
@@ -28,7 +33,7 @@ function FotoPerfil() {
     >
       <Box
         component="img"
-        src="/images/perfil.jpg"
+        src="/images/perfil.webp"
         alt="Rodrigo Bossini"
         sx={{
           width: '100%',
@@ -141,19 +146,23 @@ export default function Hero() {
       </Reveal>
 
       <Reveal delay={400}>
-        <Button
-          variant="contained"
-          size="large"
-          href="#/material"
-          startIcon={<MenuBookOutlined />}
-        >
-          Material didático
-        </Button>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ alignItems: 'center' }}>
+          <Button variant="contained" size="large" href="/material/" startIcon={<MenuBookOutlined />}>
+            Material didático
+          </Button>
+          <Button variant="tonal" size="large" href="/codelabs/" startIcon={<ScienceOutlined />}>
+            Bossini Codelabs
+          </Button>
+        </Stack>
       </Reveal>
 
       <Reveal delay={500}>
         <RedesRapidas />
       </Reveal>
+
+      <Suspense fallback={null}>
+        <Destaques />
+      </Suspense>
     </Stack>
   )
 }

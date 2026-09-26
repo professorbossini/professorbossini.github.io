@@ -9,7 +9,7 @@ import NewReleasesOutlined from '@mui/icons-material/NewReleasesOutlined'
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
 import RouteOutlined from '@mui/icons-material/RouteOutlined'
 import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined'
-import { buscarCodelab, codelabs, formatarDuracao, lerAcesso } from '../../codelabs'
+import { buscarCodelab, codelabs, formatarDuracao, lerAcesso, urlCodelab } from '../../codelabs'
 import { categorias, categoriasDe } from '../../codelabs/categorias'
 import { buscarTrilha, trilhas } from '../../codelabs/trilhas'
 import { transition } from '../../theme'
@@ -33,7 +33,7 @@ export function situacao(codelab) {
   }
 }
 
-const linkCodelab = (codelab) => `#/codelabs/${codelab.id}/${situacao(codelab).atual}`
+const linkCodelab = (codelab) => urlCodelab(codelab.id, situacao(codelab).atual)
 
 function efeitoHover(theme) {
   return {
@@ -46,7 +46,7 @@ function efeitoHover(theme) {
   }
 }
 
-function TituloSecao({ icone: Icone, children, extra }) {
+export function TituloSecao({ icone: Icone, children, extra }) {
   return (
     <Stack direction="row" spacing={1.25} sx={{ alignItems: 'center', mb: 2 }}>
       <Icone sx={{ color: 'primary.main' }} />
@@ -59,7 +59,7 @@ function TituloSecao({ icone: Icone, children, extra }) {
 }
 
 // Card compacto: logos, título e um rodapé (progresso, data...)
-function CardCompacto({ codelab, children }) {
+export function CardCompacto({ codelab, children }) {
   const cats = categoriasDe(codelab)
   return (
     <Card sx={(theme) => ({ height: '100%', ...efeitoHover(theme) })}>
@@ -131,7 +131,7 @@ function CardTrilha({ trilha }) {
   const categoria = categorias[trilha.icone]
   return (
     <Card sx={(theme) => ({ height: '100%', display: 'flex', flexDirection: 'column', ...efeitoHover(theme) })}>
-      <CardActionArea href={`#/codelabs/trilha/${trilha.id}`} sx={{ p: 2.25, flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 1.25 }}>
+      <CardActionArea href={`/codelabs/trilha/${trilha.id}/`} sx={{ p: 2.25, flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 1.25 }}>
         <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
           <LogoCategoria categoria={categoria} tamanho={40} />
           <Box sx={{ minWidth: 0 }}>
@@ -236,14 +236,14 @@ export function PaginaTrilha({ id }) {
     return (
       <Stack spacing={2} sx={{ alignItems: 'flex-start' }}>
         <Typography variant="h5">Trilha não encontrada</Typography>
-        <Button href="#/codelabs" startIcon={<ArrowBack />}>Ver todos os codelabs</Button>
+        <Button href="/codelabs/" startIcon={<ArrowBack />}>Ver todos os codelabs</Button>
       </Stack>
     )
   }
   const r = resumoTrilha(trilha)
   return (
     <Box component="section">
-      <Button href="#/codelabs" startIcon={<ArrowBack />} sx={{ mb: 2 }}>
+      <Button href="/codelabs/" startIcon={<ArrowBack />} sx={{ mb: 2 }}>
         Codelabs
       </Button>
       <Stack direction="row" spacing={2} sx={{ alignItems: 'center', mb: 1.5 }}>

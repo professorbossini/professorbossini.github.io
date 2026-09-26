@@ -3,6 +3,7 @@ import ArrowOutward from '@mui/icons-material/ArrowOutward'
 import { monoFontFamily } from '../theme'
 import { redes } from '../data'
 import MarcaIcone from './MarcaIcone'
+import FaleComigo from './FaleComigo'
 import GlowCard from './GlowCard'
 import Reveal from './Reveal'
 import SectionTitle from './SectionTitle'
@@ -39,6 +40,8 @@ export default function Links() {
           </Grid>
         ))}
       </Grid>
+
+      <FaleComigo sx={{ mt: 4 }} />
     </Box>
   )
 }

@@ -20,7 +20,8 @@ import EventOutlined from '@mui/icons-material/EventOutlined'
 import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined'
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
 import AppsOutlined from '@mui/icons-material/AppsOutlined'
-import { codelabs, compararRecentes, formatarDuracao, lerProgresso } from '../../codelabs'
+import { codelabs, compararRecentes, formatarDuracao, lerProgresso, urlCodelab } from '../../codelabs'
+import { irPara } from '../../useRota'
 import { categoriasDe, categorias } from '../../codelabs/categorias'
 import { transition } from '../../theme'
 import Reveal from '../Reveal'
@@ -140,7 +141,7 @@ function CardCodelab({ codelab, onBaixar, baixando }) {
   const cats = categoriasDe(codelab)
   const categoria = cats[0] ?? null
   const progresso = lerProgresso(codelab.id)
-  const url = `#/codelabs/${codelab.id}/${progresso || 1}`
+  const url = urlCodelab(codelab.id, progresso)
 
   return (
     <Card
@@ -282,7 +283,7 @@ export default function CodelabsHome({ parametros = [] }) {
             atual={trilhaId ? undefined : categoria}
             onEscolher={(chave) => {
               setCategoria(chave)
-              if (trilhaId) window.location.hash = '/codelabs'
+              if (trilhaId) irPara('/codelabs/')
             }}
           />
         </Reveal>
