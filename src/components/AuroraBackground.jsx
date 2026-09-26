@@ -1,56 +1,63 @@
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 
-// Manchas de luz desfocadas que se movem devagar atrás do conteúdo.
-const blob = (color, size, top, left, delay) => ({
-  position: 'absolute',
-  top,
-  left,
-  width: size,
-  height: size,
-  borderRadius: '50%',
-  background: color,
-  filter: 'blur(90px)',
-  opacity: 'var(--aurora-opacity)',
-  animation: `aurora-drift 22s ease-in-out ${delay}s infinite alternate`,
-})
-
+/**
+ * Soft, slowly drifting lime/violet glow behind auth screens. A nod to the
+ * luminous gradients of Google's AI materials. Purely decorative; animation
+ * stops automatically with prefers-reduced-motion.
+ */
 export default function AuroraBackground() {
+  const blob = {
+    position: 'absolute',
+    borderRadius: '50%',
+    filter: 'blur(80px)',
+    willChange: 'transform',
+  };
+
   return (
     <Box
       aria-hidden
       sx={(theme) => ({
-        '--aurora-opacity': 0.35,
-        ...theme.applyStyles('dark', { '--aurora-opacity': 0.28 }),
         position: 'fixed',
         inset: 0,
         zIndex: -1,
         overflow: 'hidden',
-        pointerEvents: 'none',
-        '@keyframes aurora-drift': {
-          '0%': { transform: 'translate(0, 0) scale(1)' },
-          '100%': { transform: 'translate(6vw, 4vh) scale(1.15)' },
+        backgroundColor: theme.vars.palette.background.default,
+        '@keyframes faisca-drift-a': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '50%': { transform: 'translate(8vw, 6vh) scale(1.15)' },
         },
-        '@media (prefers-reduced-motion: reduce)': {
-          '& > div': { animation: 'none' },
+        '@keyframes faisca-drift-b': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1.1)' },
+          '50%': { transform: 'translate(-10vw, -4vh) scale(0.95)' },
         },
       })}
     >
-      <Box sx={blob('#4f7cff', '42vmax', '-18vmax', '-12vmax', 0)} />
-      <Box sx={blob('#9b6bff', '34vmax', '-10vmax', '55vw', -6)} />
-      <Box sx={blob('#22c3ee', '26vmax', '55vh', '-8vmax', -12)} />
-      <Box sx={blob('#ff6b9a', '22vmax', '70vh', '70vw', -3)} />
-      {/* grade sutil de pontos para o ar "tech" */}
       <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            'radial-gradient(var(--mui-palette-text-primary) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-          opacity: 0.05,
-          maskImage: 'radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%)',
-        }}
+        sx={(theme) => ({
+          ...blob,
+          width: '48vmax',
+          height: '48vmax',
+          top: '-18vmax',
+          left: '-12vmax',
+          background: theme.alpha(theme.vars.palette.lime.main, 0.28),
+          animation: 'faisca-drift-a 22s ease-in-out infinite',
+          ...theme.applyStyles('dark', {
+            background: theme.alpha(theme.vars.palette.lime.main, 0.07),
+          }),
+        })}
+      />
+      <Box
+        sx={(theme) => ({
+          ...blob,
+          width: '54vmax',
+          height: '54vmax',
+          bottom: '-24vmax',
+          right: '-16vmax',
+          background: theme.alpha('#7649CF', 0.22),
+          animation: 'faisca-drift-b 26s ease-in-out infinite',
+          ...theme.applyStyles('dark', { background: theme.alpha('#7649CF', 0.36) }),
+        })}
       />
     </Box>
-  )
+  );
 }

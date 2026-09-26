@@ -1,20 +1,20 @@
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
-import { aiGradient, easing } from '../theme'
+import { gradiente, transition } from '../theme'
 import { secoes } from '../secoes'
 
 const itemSx = {
-  borderRadius: 999,
+  borderRadius: 99,
   minHeight: 56,
   px: 2.5,
   mb: 0.5,
-  transition: `background-color 250ms ${easing.emphasized}, color 250ms`,
+  transition: transition(['background-color', 'color'], 'short4'),
   '& .MuiListItemIcon-root': { minWidth: 40, color: 'inherit' },
   '&.Mui-selected': {
-    color: 'primary.main',
-    bgcolor: 'var(--mui-palette-surface-containerHigh)',
+    color: 'primary.onContainer',
+    bgcolor: 'primary.container',
     '& .MuiListItemText-primary': { fontWeight: 600 },
   },
-  '&.Mui-selected:hover': { bgcolor: 'var(--mui-palette-surface-containerHigh)' },
+  '&.Mui-selected:hover': { bgcolor: 'primary.container' },
 }
 
 export default function Navegacao({ rota, onNavegar }) {
@@ -50,7 +50,7 @@ export default function Navegacao({ rota, onNavegar }) {
 
 
       <Box sx={{ mt: 'auto', px: 2.5, pb: 2 }}>
-        <Box sx={{ height: '1px', background: aiGradient, opacity: 0.5, mb: 2 }} />
+        <Box sx={{ height: '1px', background: gradiente, opacity: 0.6, mb: 2 }} />
         <Typography variant="caption" color="text.secondary">
           © {new Date().getFullYear()} Rodrigo Bossini
         </Typography>

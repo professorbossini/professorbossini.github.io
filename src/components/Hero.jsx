@@ -1,6 +1,6 @@
 import { Box, Button, ButtonBase, Stack, Tooltip, Typography } from '@mui/material'
 import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined'
-import { aiGradient, easing } from '../theme'
+import { brilho, gradiente, gradienteTexto, transition } from '../theme'
 import { redes, topicos } from '../data'
 import MarcaIcone from './MarcaIcone'
 import PromptTicker from './PromptTicker'
@@ -19,7 +19,7 @@ function FotoPerfil() {
           position: 'absolute',
           inset: -16,
           borderRadius: '40px',
-          background: aiGradient,
+          background: gradiente,
           filter: 'blur(32px)',
           opacity: 0.3,
           zIndex: -1,
@@ -36,7 +36,7 @@ function FotoPerfil() {
           objectFit: 'cover',
           borderRadius: '28px',
           display: 'block',
-          boxShadow: '0 12px 40px var(--mui-palette-surface-glow)',
+          boxShadow: `0 12px 40px -8px ${brilho}`,
         }}
       />
     </Box>
@@ -64,23 +64,27 @@ function RedesRapidas() {
             target="_blank"
             rel="noopener"
             aria-label={`${title}: ${handle}`}
-            sx={{
+            // mesmo estilo do selo "feito com Faísca": pílula translúcida que sobe com mola no hover
+            sx={(theme) => ({
               gap: 1.25,
               pl: 0.75,
               pr: 2.25,
               justifyContent: 'flex-start',
               py: 0.75,
-              borderRadius: 999,
-              border: '1px solid',
-              borderColor: 'divider',
-              bgcolor: 'var(--mui-palette-surface-container)',
-              transition: `transform 250ms ${easing.emphasized}, box-shadow 250ms, border-color 250ms`,
+              borderRadius: 99,
+              border: `1px solid ${theme.vars.palette.divider}`,
+              bgcolor: theme.alpha(theme.vars.palette.background.paper, 0.72),
+              backdropFilter: 'saturate(180%) blur(12px)',
+              transition: [
+                transition('transform', 'medium2', 'springFast'),
+                transition(['box-shadow', 'border-color'], 'medium1'),
+              ].join(', '),
               '&:hover': {
-                transform: 'translateY(-3px)',
-                borderColor: 'var(--mui-palette-surface-outline)',
-                boxShadow: '0 10px 28px var(--mui-palette-surface-glow)',
+                transform: 'translateY(-2px)',
+                borderColor: theme.alpha(theme.vars.palette.primary.main, 0.7),
+                boxShadow: `0 10px 28px -8px ${theme.alpha(theme.vars.palette.primary.main, 0.45)}`,
               },
-            }}
+            })}
           >
             <MarcaIcone marca={marca} tamanho={34} />
             <Typography component="span" sx={{ fontWeight: 500, fontSize: 15 }}>
@@ -109,7 +113,7 @@ export default function Hero() {
           <Box
             component="span"
             sx={{
-              background: aiGradient,
+              background: gradienteTexto,
               backgroundSize: '200% 100%',
               backgroundClip: 'text',
               color: 'transparent',
@@ -142,16 +146,6 @@ export default function Hero() {
           size="large"
           href="#/material"
           startIcon={<MenuBookOutlined />}
-          sx={{
-            background: aiGradient,
-            backgroundSize: '150% 100%',
-            color: '#fff',
-            transition: 'background-position 400ms, transform 200ms, box-shadow 300ms',
-            '&:hover': {
-              backgroundPosition: '100% 0',
-              boxShadow: '0 8px 28px var(--mui-palette-surface-glow)',
-            },
-          }}
         >
           Material didático
         </Button>

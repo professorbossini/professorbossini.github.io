@@ -3,7 +3,7 @@ import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typog
 import { ThemeProvider } from '@mui/material/styles'
 import MenuIcon from '@mui/icons-material/Menu'
 import theme from './theme'
-import ThemeToggle from './components/ThemeToggle'
+import ColorModeToggle from './components/ColorModeToggle'
 import AuroraBackground from './components/AuroraBackground'
 import Navegacao from './components/Navegacao'
 import useHashRoute from './useHashRoute'
@@ -14,7 +14,7 @@ const LARGURA_GAVETA = 300
 const fundoGaveta = {
   width: LARGURA_GAVETA,
   border: 'none',
-  bgcolor: 'var(--mui-palette-surface-container)',
+  bgcolor: 'background.paper',
   backgroundImage: 'none',
 }
 
@@ -43,12 +43,7 @@ export default function App() {
       <AppBar
         position="fixed"
         elevation={0}
-        sx={{
-          display: { md: 'none' },
-          bgcolor: 'transparent',
-          backdropFilter: 'blur(16px)',
-          color: 'text.primary',
-        }}
+        sx={{ display: { md: 'none' } }}
       >
         <Toolbar sx={{ gap: 1 }}>
           <IconButton edge="start" aria-label="Abrir menu" onClick={() => setGavetaAberta(true)}>
@@ -57,7 +52,7 @@ export default function App() {
           <Typography sx={{ flexGrow: 1, fontWeight: 500 }} noWrap>
             {secao.rotulo}
           </Typography>
-          <ThemeToggle />
+          <ColorModeToggle />
         </Toolbar>
       </AppBar>
 
@@ -81,7 +76,7 @@ export default function App() {
       </Drawer>
 
       <Box sx={{ display: { xs: 'none', md: 'block' }, position: 'fixed', top: 16, right: 16, zIndex: 10 }}>
-        <ThemeToggle />
+        <ColorModeToggle />
       </Box>
 
       <Box

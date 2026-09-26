@@ -1,6 +1,6 @@
 import { Box, Chip, Grid, Stack, Typography } from '@mui/material'
 import ArrowOutward from '@mui/icons-material/ArrowOutward'
-import { fontMono } from '../theme'
+import { monoFontFamily } from '../theme'
 import { redes } from '../data'
 import MarcaIcone from './MarcaIcone'
 import GlowCard from './GlowCard'
@@ -22,13 +22,13 @@ export default function Links() {
                   <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
                     <MarcaIcone marca={marca} />
                     <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                      {featured && <Chip label="Principal" size="small" color="primary" variant="outlined" />}
+                      {featured && <Chip label="Principal" size="small" color="primary" variant="soft" />}
                       <ArrowOutward sx={{ color: 'text.secondary', fontSize: 20 }} />
                     </Stack>
                   </Stack>
                   <Box>
                     <Typography variant="h6" component="h3">{title}</Typography>
-                    <Typography sx={{ fontFamily: fontMono, fontSize: 14, color: 'primary.main' }}>
+                    <Typography sx={{ fontFamily: monoFontFamily, fontSize: 14, color: 'primary.main' }}>
                       {handle}
                     </Typography>
                   </Box>

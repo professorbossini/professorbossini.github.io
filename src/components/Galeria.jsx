@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, ButtonBase, Dialog, Typography } from '@mui/material'
 import MusicNoteOutlined from '@mui/icons-material/MusicNoteOutlined'
 import { fotos } from '../data'
-import { easing } from '../theme'
+import { transition } from '../theme'
 import Reveal from './Reveal'
 import SectionTitle from './SectionTitle'
 
@@ -44,7 +44,7 @@ export default function Galeria() {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  transition: `transform 600ms ${easing.emphasized}, filter 600ms`,
+                  transition: transition(['transform', 'filter'], 'long4', 'emphasized'),
                   filter: 'saturate(0.9)',
                 },
                 '&:hover img, &:focus-visible img': { transform: 'scale(1.06)', filter: 'saturate(1.1)' },

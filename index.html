@@ -3,12 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,300..700&family=Google+Sans+Code:wght@400..500&display=swap" rel="stylesheet" />
     <title>Rodrigo Bossini — Professor e Desenvolvedor</title>
     <meta name="description" content="Rodrigo Bossini — professor universitário de Algoritmos, Computação em Nuvem (AWS) e DevOps. Material didático, redes e contato." />
-    <meta name="theme-color" content="#0e0f12" />
+    <meta name="theme-color" content="#5B2DB0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#140E26" media="(prefers-color-scheme: dark)" />
+    <style>
+      /* cor de fundo antes do React carregar (tema Faísca) */
+      html[data-light] {
+        background: #fbfafe;
+        color-scheme: light;
+      }
+      html[data-dark] {
+        background: #140e26;
+        color-scheme: dark;
+      }
+    </style>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href="https://professorbossini.dev/" />
 

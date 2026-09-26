@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import AutoAwesome from '@mui/icons-material/AutoAwesome'
-import { aiGradient, fontMono } from '../theme'
+import { brilho, gradiente, monoFontFamily } from '../theme'
 
 // Pílula no estilo "prompt" que digita e apaga os tópicos em sequência.
 export default function PromptTicker({ words }) {
@@ -35,10 +35,10 @@ export default function PromptTicker({ words }) {
         gap: 1.25,
         px: 2.5,
         py: 1.25,
-        borderRadius: 999,
+        borderRadius: 99,
         border: '1px solid transparent',
-        background: `linear-gradient(var(--mui-palette-background-paper), var(--mui-palette-background-paper)) padding-box, ${aiGradient} border-box`,
-        boxShadow: '0 8px 32px var(--mui-palette-surface-glow)',
+        background: `linear-gradient(var(--faisca-palette-background-paper), var(--faisca-palette-background-paper)) padding-box, ${gradiente} border-box`,
+        boxShadow: `0 8px 32px -8px ${brilho}`,
         maxWidth: '100%',
       }}
     >
@@ -60,7 +60,7 @@ export default function PromptTicker({ words }) {
         component="span"
         aria-hidden
         sx={{
-          fontFamily: fontMono,
+          fontFamily: monoFontFamily,
           fontWeight: 500,
           whiteSpace: 'nowrap',
           '&::after': {

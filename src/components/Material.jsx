@@ -16,7 +16,7 @@ import {
 import SearchOutlined from '@mui/icons-material/SearchOutlined'
 import OpenInNew from '@mui/icons-material/OpenInNew'
 import RefreshOutlined from '@mui/icons-material/RefreshOutlined'
-import { aiGradient, fontMono } from '../theme'
+import { monoFontFamily } from '../theme'
 import { categorias, pcloudRaiz, usePastas } from '../material'
 import GlowCard from './GlowCard'
 import Reveal from './Reveal'
@@ -40,7 +40,7 @@ function IconePasta({ pasta }) {
         borderRadius: '14px',
         display: 'grid',
         placeItems: 'center',
-        bgcolor: 'var(--mui-palette-surface-containerHigh)',
+        bgcolor: 'neutral.container',
         color: 'primary.main',
       }}
     >
@@ -70,24 +70,10 @@ function CardPasta({ pasta }) {
         <Box sx={{ minWidth: 0, flexGrow: 1 }}>
           <Typography sx={{ fontWeight: 500, lineHeight: 1.3 }}>{pasta.nome}</Typography>
           <Stack direction="row" useFlexGap spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap', mt: 0.5 }}>
-            <Typography sx={{ fontFamily: fontMono, fontSize: 12, color: 'text.secondary', whiteSpace: 'nowrap' }}>
+            <Typography sx={{ fontFamily: monoFontFamily, fontSize: 12, color: 'text.secondary', whiteSpace: 'nowrap' }}>
               {pasta.itens} {pasta.itens === 1 ? 'item' : 'itens'} · {formatarData(pasta.modificado)}
             </Typography>
-            {pasta.novo && (
-              <Box
-                sx={{
-                  px: 0.75,
-                  borderRadius: '6px',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  lineHeight: '18px',
-                  color: '#fff',
-                  background: aiGradient,
-                }}
-              >
-                novo
-              </Box>
-            )}
+            {pasta.novo && <Chip label="novo" size="small" color="lime" variant="soft" />}
           </Stack>
         </Box>
       </Stack>
@@ -130,7 +116,7 @@ export default function Material() {
             target="_blank"
             rel="noopener"
             endIcon={<OpenInNew />}
-            sx={{ flexShrink: 0, alignSelf: { xs: 'flex-start', sm: 'auto' }, borderColor: 'var(--mui-palette-surface-outline)' }}
+            sx={{ flexShrink: 0, alignSelf: { xs: 'flex-start', sm: 'auto' } }}
           >
             Abrir tudo no pCloud
           </Button>
@@ -153,16 +139,7 @@ export default function Material() {
               'aria-label': 'Buscar pasta',
             },
           }}
-          sx={{
-            mb: 2,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 999,
-              bgcolor: 'var(--mui-palette-surface-container)',
-              height: 56,
-              '& fieldset': { borderColor: 'transparent' },
-              '&:hover fieldset': { borderColor: 'var(--mui-palette-surface-outline)' },
-            },
-          }}
+          sx={{ mb: 2 }}
         />
 
         <Stack
@@ -175,7 +152,7 @@ export default function Material() {
               label="Todas"
               onClick={() => setCategoria(null)}
               color={categoria === null ? 'primary' : 'default'}
-              variant={categoria === null ? 'filled' : 'outlined'}
+              variant={categoria === null ? 'soft' : 'outlined'}
             />
             {categorias.map((cat) => (
               <Chip
@@ -183,7 +160,7 @@ export default function Material() {
                 label={pastas ? `${cat} · ${contagem(cat)}` : cat}
                 onClick={() => setCategoria(categoria === cat ? null : cat)}
                 color={categoria === cat ? 'primary' : 'default'}
-                variant={categoria === cat ? 'filled' : 'outlined'}
+                variant={categoria === cat ? 'soft' : 'outlined'}
               />
             ))}
           </Stack>
@@ -193,7 +170,7 @@ export default function Material() {
             value={ordem}
             onChange={(_, valor) => valor && setOrdem(valor)}
             aria-label="Ordenar pastas"
-            sx={{ flexShrink: 0, '& .MuiToggleButton-root': { px: 2, textTransform: 'none', borderRadius: 999 } }}
+            sx={{ flexShrink: 0, alignSelf: { xs: 'flex-start', md: 'auto' } }}
           >
             <ToggleButton value="az">A–Z</ToggleButton>
             <ToggleButton value="recentes">Recentes</ToggleButton>
@@ -205,7 +182,7 @@ export default function Material() {
         <Grid container spacing={2}>
           {Array.from({ length: 9 }, (_, i) => (
             <Grid key={i} size={{ xs: 12, sm: 6, md: 4 }}>
-              <Skeleton variant="rounded" height={96} sx={{ borderRadius: '28px' }} />
+              <Skeleton variant="rounded" height={96} sx={{ borderRadius: '16px' }} />
             </Grid>
           ))}
         </Grid>
@@ -214,7 +191,6 @@ export default function Material() {
       {status === 'erro' && (
         <Alert
           severity="warning"
-          sx={{ borderRadius: '20px' }}
           action={
             <Stack direction="row" spacing={1}>
               <Button color="inherit" size="small" startIcon={<RefreshOutlined />} onClick={tentarDeNovo}>

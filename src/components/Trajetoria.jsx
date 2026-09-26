@@ -3,14 +3,14 @@ import SchoolOutlined from '@mui/icons-material/SchoolOutlined'
 import WorkspacePremiumOutlined from '@mui/icons-material/WorkspacePremiumOutlined'
 import CodeOutlined from '@mui/icons-material/CodeOutlined'
 import { areas, certificacoes, formacao } from '../data'
-import { fontMono } from '../theme'
+import { gradiente, monoFontFamily } from '../theme'
 import Reveal from './Reveal'
 import SectionTitle from './SectionTitle'
 
 function Painel({ icon: Icon, titulo, children, delay }) {
   return (
     <Reveal delay={delay} sx={{ height: '100%' }}>
-      <Card sx={{ height: '100%', p: 3, bgcolor: 'var(--mui-palette-surface-container)' }}>
+      <Card sx={{ height: '100%', p: 3 }}>
         <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', mb: 2.5 }}>
           <Icon sx={{ color: 'primary.main' }} />
           <Typography variant="h6" component="h3">{titulo}</Typography>
@@ -34,7 +34,7 @@ export default function Trajetoria() {
               {formacao.map(({ titulo, instituicao }) => (
                 <Box
                   key={titulo}
-                  sx={{ pl: 2, borderLeft: '2px solid', borderImage: 'linear-gradient(#4f7cff, #9b6bff) 1' }}
+                  sx={{ pl: 2, borderLeft: '2px solid', borderImage: `${gradiente.replace('90deg', '180deg')} 1` }}
                 >
                   <Typography sx={{ fontWeight: 500 }}>{titulo}</Typography>
                   <Typography variant="body2" color="text.secondary">{instituicao}</Typography>
@@ -50,15 +50,15 @@ export default function Trajetoria() {
                 <Stack key={nome} direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
                   <Box
                     sx={{
-                      fontFamily: fontMono,
+                      fontFamily: monoFontFamily,
                       fontSize: 11,
                       fontWeight: 500,
                       minWidth: 40,
                       textAlign: 'center',
                       py: 0.25,
                       borderRadius: '6px',
-                      bgcolor: 'var(--mui-palette-surface-containerHigh)',
-                      color: 'primary.main',
+                      bgcolor: 'primary.container',
+                      color: 'primary.onContainer',
                     }}
                   >
                     {emissor}
@@ -73,7 +73,7 @@ export default function Trajetoria() {
           <Painel icon={CodeOutlined} titulo="Áreas em que leciono" delay={160}>
             <Stack direction="row" useFlexGap spacing={1} sx={{ flexWrap: 'wrap' }}>
               {areas.map((area) => (
-                <Chip key={area} label={area} variant="outlined" sx={{ borderColor: 'var(--mui-palette-surface-outline)' }} />
+                <Chip key={area} label={area} variant="soft" color="primary" />
               ))}
             </Stack>
           </Painel>
