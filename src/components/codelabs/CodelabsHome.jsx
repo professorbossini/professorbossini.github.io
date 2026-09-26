@@ -27,6 +27,7 @@ import Reveal from '../Reveal'
 import { BossiniMark } from '../brand/BossiniMark'
 import AvisoFormato from './AvisoFormato'
 import useBaixarPdf from './useBaixarPdf'
+import BotaoExercicios from './BotaoExercicios'
 
 const formatoData = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' })
 const normalizar = (texto) => texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
@@ -48,7 +49,11 @@ function LogoCategoria({ categoria, tamanho = 40 }) {
         placeItems: 'center',
       }}
     >
-      <Box component="img" src={categoria.logo} alt="" sx={{ width: '72%', height: '72%', objectFit: 'contain' }} />
+      {categoria.logo ? (
+        <Box component="img" src={categoria.logo} alt="" sx={{ width: '72%', height: '72%', objectFit: 'contain' }} />
+      ) : (
+        <categoria.icone sx={{ fontSize: tamanho * 0.62, color: categoria.cor }} />
+      )}
     </Box>
   )
 }
@@ -64,7 +69,10 @@ function TrilhoCategorias({ opcoes, atual, onEscolher }) {
         display: 'flex',
         flexDirection: { xs: 'row', md: 'column' },
         gap: { xs: 1, md: 1.5 },
-        overflowX: { xs: 'auto', md: 'visible' },
+        overflowX: { xs: 'auto', md: 'hidden' },
+        overflowY: { md: 'auto' },
+        maxHeight: { md: 'calc(100vh - 48px)' },
+        scrollbarWidth: 'thin',
         width: { md: 88 },
         py: { md: 1.5 },
         borderRadius: '20px',
@@ -240,6 +248,7 @@ function CardCodelab({ codelab, onBaixar, baixando }) {
             {baixando ? 'Baixando…' : 'Baixar PDF'}
           </Button>
         )}
+        <BotaoExercicios arquivos={codelab.exercicios} onBaixar={onBaixar} baixando={baixando} />
       </Stack>
     </Card>
   )
@@ -254,7 +263,9 @@ export default function CodelabsHome() {
   const contagem = (chave) => codelabs.filter((c) => c.categorias.includes(chave)).length
   const opcoes = [
     { chave: null, nome: 'Todas', total: codelabs.length },
-    ...Object.entries(categorias).map(([chave, c]) => ({ chave, nome: c.nome, total: contagem(chave), categoria: c })),
+    ...Object.entries(categorias)
+      .map(([chave, c]) => ({ chave, nome: c.nome, total: contagem(chave), categoria: c }))
+      .filter((o) => o.total > 0),
   ]
 
   const visiveis = useMemo(() => {
