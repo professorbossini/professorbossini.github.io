@@ -7,9 +7,9 @@ Site pessoal publicado em [professorbossini.dev](https://professorbossini.dev).
 ## Stack
 
 - [React](https://react.dev) + [Vite](https://vite.dev)
-- [MUI (Material UI)](https://mui.com) com tema Material 3 próprio, claro e escuro
+- [MUI (Material UI)](https://mui.com) com o tema do [Faísca](https://github.com/professorbossini/faisca-auth-starter) (Material 3, lima + violeta), claro e escuro
 - SPA com gaveta de navegação e rotas por hash (`#/formacao`), sem precisar de configuração no GitHub Pages
-- Fontes Google Sans Flex e Google Sans Code
+- Fontes Google Sans Flex e Google Sans Code (Fontsource)
 
 ## Rodando localmente
 
@@ -23,7 +23,7 @@ npm run preview  # serve o build localmente
 ## Estrutura
 
 - `src/data.js` — textos, links, formação, certificações e fotos (edite aqui o conteúdo)
-- `src/theme.js` — paleta, gradiente, tipografia e curvas de movimento
+- `src/theme/` — tema Faísca portado (tokens, motion, theme) e os gradientes do site
 - `src/secoes.js` — itens do menu lateral e a seção que cada um exibe
 - `src/material.js` — catálogo das pastas do pCloud (nome, categoria e ícone de cada uma)
 - `src/components/` — seções e navegação (gaveta lateral)
@@ -35,6 +35,33 @@ A página `#/material` lê a lista de pastas direto da API pública do pCloud a 
 novas aparecem sozinhas, com um nome derivado do nome da pasta e um ícone genérico. Para dar a elas um
 nome bonito, categoria e ícone, adicione uma entrada em `catalogo` no `src/material.js`. Logos de
 tecnologias vêm do [Devicon](https://devicon.dev).
+
+## Codelabs
+
+A página `#/codelabs` lista tutoriais no formato de fonte do [Google Codelabs](https://github.com/googlecodelabs/tools)
+(Markdown do `claat`). Cada um fica em `src/codelabs/<id>/codelab.md`, com as imagens em
+`public/codelabs/<id>/img/`, e abre em `#/codelabs/<id>/<passo>`.
+
+```markdown
+summary: Resumo exibido no card
+id: meu-codelab
+categories: AWS
+authors: Rodrigo Bossini
+last updated: 2026-09-26
+pdf: pasta/no/pcloud/apostila.pdf
+
+# Título do codelab
+
+## Primeiro passo
+Duration: 5:00
+
+Conteúdo em Markdown, com `<aside class="positive">` para dicas e
+`<aside class="negative">` para alertas.
+```
+
+- `categories` precisa existir em `src/codelabs/categorias.js` para aparecer na coluna de categorias.
+- `pdf` é o caminho do arquivo dentro do link público do pCloud; o botão **Baixar PDF** pede o link
+  na hora, então sempre baixa a versão mais recente.
 
 ## Deploy
 
