@@ -15,7 +15,8 @@ export default function Reveal({ children, delay = 0, sx }) {
           observer.disconnect()
         }
       },
-      { threshold: 0.12 },
+      // threshold 0 + margem: blocos muito altos (ex.: a grade de codelabs) também são revelados
+      { threshold: 0, rootMargin: '0px 0px -8% 0px' },
     )
     observer.observe(ref.current)
     return () => observer.disconnect()
