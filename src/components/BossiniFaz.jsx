@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Box, Button, Card, Chip, Grid, Link, Stack, Typography } from '@mui/material'
 import ArrowOutward from '@mui/icons-material/ArrowOutward'
 import ArticleOutlined from '@mui/icons-material/ArticleOutlined'
@@ -36,7 +37,7 @@ import {
   softwares,
   tecnicoDeEquipes,
 } from '../bossiniFaz'
-import { gradienteTexto, monoFontFamily } from '../theme'
+import { brilho, gradienteTexto, monoFontFamily } from '../theme'
 import GlowCard from './GlowCard'
 import { Logo, Painel } from './Painel'
 import Reveal from './Reveal'
@@ -229,10 +230,117 @@ function ChipEvento({ nome, tipo, href }) {
   )
 }
 
-function Eventos() {
+// Paradas do mapa, da mais antiga para a mais recente
+const paradas = [
+  { ano: 2014, titulo: 'Técnico de equipes', eventos: tecnicoDeEquipes.map((e) => ({ ...e, tipo: 'maratona' })) },
+  ...[...eventosOrganizados].reverse().map(({ ano, eventos }) => ({
+    ano,
+    titulo: `${eventos.length} ${eventos.length === 1 ? 'evento organizado' : 'eventos organizados'}`,
+    eventos,
+  })),
+]
+const totalEventos = eventosOrganizados.reduce((soma, a) => soma + a.eventos.length, 0)
+
+// Curvas suaves ligando os checkpoints, como uma trilha num mapa
+function trilha(pontos) {
+  if (!pontos.length) return ''
+  const [primeiro] = pontos
+  let d = `M ${primeiro.x} 0 L ${primeiro.x} ${primeiro.y}`
+  for (let i = 1; i < pontos.length; i++) {
+    const a = pontos[i - 1]
+    const b = pontos[i]
+    const meio = (b.y - a.y) / 2
+    d += ` C ${a.x} ${a.y + meio}, ${b.x} ${b.y - meio}, ${b.x} ${b.y}`
+  }
+  return d
+}
+
+function Checkpoint({ refPonto, lado, children, destaque }) {
+  return (
+    <Box
+      sx={{
+        gridColumn: { xs: 1, md: 2 },
+        justifySelf: lado === 'esquerda' ? 'start' : lado === 'direita' ? 'end' : 'center',
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
+      <Box
+        ref={refPonto}
+        sx={(theme) => ({
+          width: { xs: 46, md: 60 },
+          height: { xs: 46, md: 60 },
+          borderRadius: '50%',
+          display: 'grid',
+          placeItems: 'center',
+          fontFamily: monoFontFamily,
+          fontWeight: 700,
+          fontSize: { xs: 12, md: 15 },
+          color: destaque ? 'primary.contrastText' : 'primary.main',
+          bgcolor: destaque ? 'primary.main' : 'background.paper',
+          border: `3px solid ${theme.vars.palette.primary.main}`,
+          boxShadow: `0 0 0 6px ${theme.alpha(theme.vars.palette.primary.main, 0.14)}, 0 8px 24px -6px ${brilho}`,
+        })}
+      >
+        {children}
+      </Box>
+    </Box>
+  )
+}
+
+function Parada({ lado, children }) {
+  return (
+    <Box
+      sx={{
+        gridColumn: { xs: 2, md: lado === 'esquerda' ? 1 : 3 },
+        gridRow: { md: 1 },
+        justifySelf: { md: lado === 'esquerda' ? 'end' : 'start' },
+        minWidth: 0,
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
+
+function MapaDeEventos() {
+  const mapa = useRef(null)
+  const pontos = useRef([])
+  const [desenho, setDesenho] = useState({ d: '', largura: 0, altura: 0 })
+
+  // mede a posição de cada checkpoint e redesenha a trilha quando o tamanho muda
+  useLayoutEffect(() => {
+    const el = mapa.current
+    const medir = () => {
+      const base = el.getBoundingClientRect()
+      const centros = pontos.current.filter(Boolean).map((n) => {
+        const r = n.getBoundingClientRect()
+        return { x: r.left - base.left + r.width / 2, y: r.top - base.top + r.height / 2 }
+      })
+      setDesenho({ d: trilha(centros), largura: base.width, altura: base.height })
+    }
+    medir()
+    const observador = new ResizeObserver(medir)
+    observador.observe(el)
+    return () => observador.disconnect()
+  }, [])
+
+  const registrar = (i) => (el) => {
+    pontos.current[i] = el
+  }
+
   return (
     <Reveal>
-      <Card sx={{ p: { xs: 2.5, sm: 3 } }}>
+      <Card
+        sx={(theme) => ({
+          p: { xs: 2, sm: 3 },
+          // pontinhos ao fundo, como papel de mapa
+          backgroundImage: `radial-gradient(${theme.alpha(theme.vars.palette.text.primary, 0.09)} 1px, transparent 1.5px)`,
+          backgroundSize: '20px 20px',
+        })}
+      >
         <Stack direction="row" spacing={2} useFlexGap sx={{ flexWrap: 'wrap', mb: 3 }}>
           {Object.entries(tiposDeEvento).map(([tipo, { rotulo, icone: Icone }]) => (
             <Stack key={tipo} direction="row" spacing={0.75} sx={{ alignItems: 'center', color: 'text.secondary' }}>
@@ -241,33 +349,93 @@ function Eventos() {
             </Stack>
           ))}
         </Stack>
-        <Stack spacing={2.5}>
-          {eventosOrganizados.map(({ ano, eventos }) => (
-            <Stack key={ano} direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }}>
-              <Typography sx={{ fontFamily: monoFontFamily, fontWeight: 600, color: 'primary.main', width: 48, flexShrink: 0, pt: 0.5 }}>
-                {ano}
-              </Typography>
-              <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
-                {eventos.map((e) => (
-                  <ChipEvento key={e.nome} {...e} />
-                ))}
-              </Stack>
-            </Stack>
-          ))}
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }}>
-            <Typography sx={{ fontFamily: monoFontFamily, fontWeight: 600, color: 'primary.main', width: 48, flexShrink: 0, pt: 0.5 }}>
-              2014
-            </Typography>
-            <Box>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>Técnico de equipes</Typography>
-              <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
-                {tecnicoDeEquipes.map(({ nome, href }) => (
-                  <ChipEvento key={nome} nome={nome} tipo="maratona" href={href} />
-                ))}
-              </Stack>
+
+        <Box ref={mapa} sx={{ position: 'relative' }}>
+          <Box
+            component="svg"
+            aria-hidden
+            width={desenho.largura}
+            height={desenho.altura}
+            sx={{ position: 'absolute', inset: 0, overflow: 'visible', pointerEvents: 'none' }}
+          >
+            {/* a estrada e, por cima, a trilha pontilhada andando */}
+            <Box
+              component="path"
+              d={desenho.d}
+              sx={(theme) => ({
+                fill: 'none',
+                stroke: theme.alpha(theme.vars.palette.primary.main, 0.16),
+                strokeWidth: 18,
+                strokeLinecap: 'round',
+              })}
+            />
+            <Box
+              component="path"
+              d={desenho.d}
+              sx={(theme) => ({
+                fill: 'none',
+                stroke: theme.vars.palette.primary.main,
+                strokeWidth: 3,
+                strokeLinecap: 'round',
+                strokeDasharray: '1 11',
+                animation: 'caminhar 1.6s linear infinite',
+                '@keyframes caminhar': { to: { strokeDashoffset: -24 } },
+                '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+              })}
+            />
+          </Box>
+
+          <Stack spacing={{ xs: 4, md: 5 }} sx={{ py: 3 }}>
+            {paradas.map(({ ano, titulo, eventos }, i) => {
+              const lado = i % 2 === 0 ? 'esquerda' : 'direita'
+              return (
+                <Box
+                  key={ano}
+                  sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '68px minmax(0, 1fr)', md: 'minmax(0, 1fr) 220px minmax(0, 1fr)' },
+                    columnGap: { xs: 1.5, md: 3 },
+                    alignItems: 'center',
+                  }}
+                >
+                  <Checkpoint refPonto={registrar(i)} lado={lado}>{ano}</Checkpoint>
+                  <Parada lado={lado}>
+                    <Reveal delay={60}>
+                      <Card sx={{ p: { xs: 1.5, sm: 2 }, maxWidth: 440 }}>
+                        <Typography variant="overline" color="text.secondary" component="p" sx={{ lineHeight: 1.6, mb: 1 }}>
+                          {titulo}
+                        </Typography>
+                        <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                          {eventos.map((e) => (
+                            <ChipEvento key={e.nome} {...e} />
+                          ))}
+                        </Stack>
+                      </Card>
+                    </Reveal>
+                  </Parada>
+                </Box>
+              )
+            })}
+
+            {/* chegada */}
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '68px minmax(0, 1fr)', md: 'minmax(0, 1fr) 220px minmax(0, 1fr)' },
+                columnGap: { xs: 1.5, md: 3 },
+                alignItems: 'center',
+              }}
+            >
+              <Checkpoint refPonto={registrar(paradas.length)} lado="centro" destaque>
+                <EmojiEventsOutlined />
+              </Checkpoint>
+              <Box sx={{ gridColumn: { xs: 2, md: 3 }, gridRow: { md: 1 }, position: 'relative', zIndex: 1 }}>
+                <Typography sx={{ fontWeight: 600 }}>{totalEventos} eventos organizados</Typography>
+                <Typography variant="body2" color="text.secondary">de 2015 a 2020, além das equipes treinadas em 2014</Typography>
+              </Box>
             </Box>
           </Stack>
-        </Stack>
+        </Box>
       </Card>
     </Reveal>
   )
@@ -344,7 +512,7 @@ export default function BossiniFaz() {
       </Grid>
 
       <Bloco icone={EmojiEventsOutlined} titulo="Maratonas, hackathons e concursos que organizei">
-        <Eventos />
+        <MapaDeEventos />
       </Bloco>
 
       <Bloco icone={HistoryEduOutlined} titulo="Orientações">
