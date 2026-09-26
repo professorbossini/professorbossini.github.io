@@ -34,11 +34,11 @@ import html5 from 'devicon/icons/html5/html5-original.svg'
 import javascript from 'devicon/icons/javascript/javascript-original.svg'
 import nextjs from 'devicon/icons/nextjs/nextjs-original.svg'
 import githubactions from 'devicon/icons/githubactions/githubactions-original.svg'
+import aws from 'devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg'
 
-const PCLOUD_CODE = 'kZFaJwVZAgJbR8eJaa4FMBBqOpfktBWP27uk'
-const PCLOUD_API = `https://api.pcloud.com/showpublink?code=${PCLOUD_CODE}`
-export const pcloudRaiz = `https://u.pcloud.link/publink/show?code=${PCLOUD_CODE}`
-const urlPasta = (id) => `${pcloudRaiz}#/filemanager?folder=${id}`
+import { PCLOUD_API, pcloudRaiz, urlPasta } from './pcloud'
+
+export { pcloudRaiz }
 
 export const categorias = ['Linguagens', 'Web e mobile', 'Dados e IA', 'Cloud e DevOps', 'Fundamentos', 'Turmas e instituições']
 
@@ -49,6 +49,8 @@ const catalogo = {
   administracao_de_dados: { nome: 'Administração de Dados', categoria: 'Dados e IA', icone: StorageOutlined },
   analise_de_algoritmos: { nome: 'Análise de Algoritmos', categoria: 'Fundamentos', icone: FunctionsOutlined },
   app_inventor: { nome: 'App Inventor', categoria: 'Web e mobile', icone: WidgetsOutlined },
+  // o texto do logo da AWS é escuro: no tema escuro inverte só a luminosidade, mantendo o laranja
+  aws: { nome: 'AWS', categoria: 'Cloud e DevOps', logo: aws, filtroEscuro: 'invert(1) hue-rotate(180deg)' },
   chatgpt: { nome: 'ChatGPT', categoria: 'Dados e IA', icone: AutoAwesomeOutlined },
   dart_flutter: { nome: 'Dart e Flutter', categoria: 'Web e mobile', logo: flutter },
   data_warehouse: { nome: 'Data Warehouse', categoria: 'Dados e IA', icone: WarehouseOutlined },
@@ -135,3 +137,4 @@ export function usePastas() {
 
   return { ...estado, tentarDeNovo }
 }
+
