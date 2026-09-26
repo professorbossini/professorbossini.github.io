@@ -1,3 +1,8 @@
+import logoAws from './assets/logos/aws.svg'
+import logoSun from './assets/logos/sun.svg'
+import logoUnifieo from './assets/logos/unifieo.png'
+import logoUsp from './assets/logos/usp.svg'
+
 export const topicos = ['Algoritmos', 'Computação em Nuvem', 'DevOps', 'Inteligência Artificial', 'Desenvolvimento de Software']
 
 export const links = {
@@ -8,15 +13,15 @@ export const links = {
 }
 
 export const formacao = [
-  { titulo: 'Mestre em Ciência da Computação', instituicao: 'Universidade de São Paulo (USP)' },
-  { titulo: 'Bacharel em Ciência da Computação', instituicao: 'Centro Universitário FIEO (UNIFIEO)' },
+  { titulo: 'Mestre em Ciência da Computação', instituicao: 'Universidade de São Paulo (USP)', logo: logoUsp },
+  { titulo: 'Bacharel em Ciência da Computação', instituicao: 'Centro Universitário FIEO (UNIFIEO)', logo: logoUnifieo },
 ]
 
 export const certificacoes = [
-  { nome: 'AWS Certified AI Practitioner', emissor: 'AWS' },
-  { nome: 'AWS Certified Cloud Practitioner', emissor: 'AWS' },
-  { nome: 'Sun Certified Java Programmer', emissor: 'Sun' },
-  { nome: 'Sun Certified Web Component Developer', emissor: 'Sun' },
+  { nome: 'AWS Certified AI Practitioner', emissor: 'AWS', logo: logoAws },
+  { nome: 'AWS Certified Cloud Practitioner', emissor: 'AWS', logo: logoAws },
+  { nome: 'Sun Certified Java Programmer', emissor: 'Sun', logo: logoSun },
+  { nome: 'Sun Certified Web Component Developer', emissor: 'Sun', logo: logoSun },
 ]
 
 export const areas = ['Inteligência Artificial', 'Análise de Algoritmos', 'Computação em Nuvem', 'DevOps', 'Desenvolvimento de Software']

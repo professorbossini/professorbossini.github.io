@@ -3,9 +3,29 @@ import SchoolOutlined from '@mui/icons-material/SchoolOutlined'
 import WorkspacePremiumOutlined from '@mui/icons-material/WorkspacePremiumOutlined'
 import CodeOutlined from '@mui/icons-material/CodeOutlined'
 import { areas, certificacoes, formacao } from '../data'
-import { gradiente, monoFontFamily } from '../theme'
+import { gradiente } from '../theme'
 import Reveal from './Reveal'
 import SectionTitle from './SectionTitle'
+
+// logo da instituição num cartão claro, legível também no tema escuro
+function Logo({ src, alt, largura, altura }) {
+  return (
+    <Box
+      sx={{
+        flexShrink: 0,
+        width: largura,
+        height: altura,
+        p: 0.75,
+        borderRadius: '10px',
+        bgcolor: '#fff',
+        border: '1px solid',
+        borderColor: 'divider',
+      }}
+    >
+      <Box component="img" src={src} alt={alt} loading="lazy" sx={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+    </Box>
+  )
+}
 
 function Painel({ icon: Icon, titulo, children, delay }) {
   return (
@@ -31,38 +51,24 @@ export default function Trajetoria() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Painel icon={SchoolOutlined} titulo="Formação">
             <Stack spacing={2.5}>
-              {formacao.map(({ titulo, instituicao }) => (
-                <Box
-                  key={titulo}
-                  sx={{ pl: 2, borderLeft: '2px solid', borderImage: `${gradiente.replace('90deg', '180deg')} 1` }}
-                >
-                  <Typography sx={{ fontWeight: 500 }}>{titulo}</Typography>
-                  <Typography variant="body2" color="text.secondary">{instituicao}</Typography>
-                </Box>
+              {formacao.map(({ titulo, instituicao, logo }) => (
+                <Stack key={titulo} direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+                  <Logo src={logo} alt={instituicao} largura={96} altura={52} />
+                  <Box sx={{ pl: 2, borderLeft: '2px solid', borderImage: `${gradiente.replace('90deg', '180deg')} 1` }}>
+                    <Typography sx={{ fontWeight: 500 }}>{titulo}</Typography>
+                    <Typography variant="body2" color="text.secondary">{instituicao}</Typography>
+                  </Box>
+                </Stack>
               ))}
             </Stack>
           </Painel>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Painel icon={WorkspacePremiumOutlined} titulo="Certificações" delay={80}>
-            <Stack spacing={1.25}>
-              {certificacoes.map(({ nome, emissor }) => (
+            <Stack spacing={1.75}>
+              {certificacoes.map(({ nome, emissor, logo }) => (
                 <Stack key={nome} direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
-                  <Box
-                    sx={{
-                      fontFamily: monoFontFamily,
-                      fontSize: 11,
-                      fontWeight: 500,
-                      minWidth: 40,
-                      textAlign: 'center',
-                      py: 0.25,
-                      borderRadius: '6px',
-                      bgcolor: 'primary.container',
-                      color: 'primary.onContainer',
-                    }}
-                  >
-                    {emissor}
-                  </Box>
+                  <Logo src={logo} alt={emissor} largura={72} altura={40} />
                   <Typography variant="body2">{nome}</Typography>
                 </Stack>
               ))}
