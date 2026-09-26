@@ -29,18 +29,29 @@ export function formatarDuracao(minutos) {
   return m ? `${h} h ${m} min` : `${h} h`
 }
 
-// Progresso salvo no navegador: último passo visitado de cada codelab
-const chave = (id) => `codelab:${id}:passo`
-export function lerProgresso(id) {
+// Progresso salvo no navegador, por codelab: passo mais adiantado visitado (`passo`),
+// último passo aberto (`atual`) e data do último acesso (`quando`).
+const chave = (id, campo) => `codelab:${id}:${campo}`
+const ler = (id, campo) => {
   try {
-    return Number(localStorage.getItem(chave(id))) || 0
+    return Number(localStorage.getItem(chave(id, campo))) || 0
   } catch {
     return 0
   }
 }
-export function salvarProgresso(id, passo) {
+
+export const lerProgresso = (id) => ler(id, 'passo')
+
+export function lerAcesso(id) {
+  const maximo = ler(id, 'passo')
+  return { maximo, atual: ler(id, 'atual') || maximo, quando: ler(id, 'quando') }
+}
+
+export function registrarAcesso(id, passo) {
   try {
-    localStorage.setItem(chave(id), String(passo))
+    if (passo > ler(id, 'passo')) localStorage.setItem(chave(id, 'passo'), String(passo))
+    localStorage.setItem(chave(id, 'atual'), String(passo))
+    localStorage.setItem(chave(id, 'quando'), String(Date.now()))
   } catch {
     // navegação privada: segue sem salvar
   }

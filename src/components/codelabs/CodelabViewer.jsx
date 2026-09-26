@@ -25,7 +25,7 @@ import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined'
 import ColorModeToggle from '../ColorModeToggle'
 import { BossiniMark } from '../brand/BossiniMark'
 import AvisoFormato from './AvisoFormato'
-import { buscarCodelab, carregarCodelab, formatarDuracao, lerProgresso, salvarProgresso } from '../../codelabs'
+import { buscarCodelab, carregarCodelab, formatarDuracao, lerProgresso, registrarAcesso } from '../../codelabs'
 import { renderizarPasso } from '../../codelabs/markdown'
 import { transition } from '../../theme'
 import 'katex/dist/katex.min.css'
@@ -121,10 +121,8 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
     if (!codelab) return
     window.scrollTo(0, 0)
     document.title = `${codelab.passos[atual - 1].titulo} · ${codelab.titulo}`
-    if (atual > visitado) {
-      setVisitado(atual)
-      salvarProgresso(codelab.id, atual)
-    }
+    registrarAcesso(codelab.id, atual) // passo atual, mais adiantado e data, para o "continue de onde parou"
+    if (atual > visitado) setVisitado(atual)
   }, [atual, codelab, visitado])
 
   // setas do teclado navegam entre os passos
