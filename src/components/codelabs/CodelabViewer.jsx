@@ -10,6 +10,7 @@ import {
   List,
   ListItemButton,
   Paper,
+  Skeleton,
   Stack,
   Toolbar,
   Tooltip,
@@ -24,11 +25,13 @@ import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined'
 import ColorModeToggle from '../ColorModeToggle'
 import { BossiniMark } from '../brand/BossiniMark'
 import AvisoFormato from './AvisoFormato'
-import { buscarCodelab, formatarDuracao, lerProgresso, salvarProgresso } from '../../codelabs'
+import { buscarCodelab, carregarCodelab, formatarDuracao, lerProgresso, salvarProgresso } from '../../codelabs'
 import { renderizarPasso } from '../../codelabs/markdown'
 import { transition } from '../../theme'
+import 'katex/dist/katex.min.css'
 import { conteudoSx } from './conteudoSx'
 import useBaixarPdf from './useBaixarPdf'
+import BotaoExercicios from './BotaoExercicios'
 
 const LARGURA_PASSOS = 320
 
@@ -97,6 +100,16 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
   const [gavetaAberta, setGavetaAberta] = useState(false)
   const conteudo = useRef(null)
   const { baixar, baixando, aviso } = useBaixarPdf()
+  // o índice traz títulos e durações; o texto dos passos chega sob demanda
+  const [completo, setCompleto] = useState(null)
+  useEffect(() => {
+    let ativo = true
+    setCompleto(null)
+    carregarCodelab(id).then((c) => ativo && setCompleto(c))
+    return () => {
+      ativo = false
+    }
+  }, [id])
 
   const irPara = (numero) => {
     window.location.hash = `/codelabs/${id}/${numero}`
@@ -126,8 +139,8 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
   })
 
   const html = useMemo(
-    () => (codelab ? renderizarPasso(codelab.passos[atual - 1].markdown, codelab.id) : ''),
-    [codelab, atual],
+    () => (completo ? renderizarPasso(completo.passos[atual - 1].markdown, completo.id) : ''),
+    [completo, atual],
   )
 
   // botão "Copiar" dos blocos de código (delegação de eventos no HTML renderizado)
@@ -201,6 +214,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
               </IconButton>
             </Tooltip>
           )}
+          <BotaoExercicios arquivos={codelab.exercicios} onBaixar={baixar} baixando={baixando} variante="icone" />
           <ColorModeToggle />
         </Toolbar>
         <LinearProgress
@@ -263,7 +277,15 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
           <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', sm: '2rem' }, mb: 3 }}>
             {atual}. {passo.titulo}
           </Typography>
-          <Box ref={conteudo} onClick={aoClicarNoConteudo} sx={conteudoSx} dangerouslySetInnerHTML={{ __html: html }} />
+          {completo ? (
+            <Box ref={conteudo} onClick={aoClicarNoConteudo} sx={conteudoSx} dangerouslySetInnerHTML={{ __html: html }} />
+          ) : (
+            <Stack spacing={1.5} aria-label="Carregando o passo">
+              {[92, 100, 84, 96, 70].map((w, i) => (
+                <Skeleton key={i} variant="text" width={`${w}%`} sx={{ fontSize: '1.1rem' }} />
+              ))}
+            </Stack>
+          )}
         </Paper>
         <AvisoFormato sx={{ maxWidth: 860, mx: 'auto', mt: 3, borderTop: 0, textAlign: 'center' }} />
       </Box>
