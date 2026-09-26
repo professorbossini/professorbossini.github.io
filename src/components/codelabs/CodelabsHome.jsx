@@ -26,37 +26,13 @@ import { transition } from '../../theme'
 import Reveal from '../Reveal'
 import { BossiniMark } from '../brand/BossiniMark'
 import AvisoFormato from './AvisoFormato'
+import LogoCategoria from './LogoCategoria'
+import CodelabsDashboard, { PaginaTrilha } from './CodelabsDashboard'
 import useBaixarPdf from './useBaixarPdf'
 import BotaoExercicios from './BotaoExercicios'
 
 const formatoData = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' })
 const normalizar = (texto) => texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
-
-// Logo da categoria num quadrado claro (o texto do logo da AWS é escuro)
-function LogoCategoria({ categoria, tamanho = 40 }) {
-  if (!categoria) return <AppsOutlined />
-  return (
-    <Box
-      sx={{
-        width: tamanho,
-        height: tamanho,
-        flexShrink: 0,
-        borderRadius: `${tamanho * 0.28}px`,
-        bgcolor: '#fff',
-        border: '1px solid',
-        borderColor: 'divider',
-        display: 'grid',
-        placeItems: 'center',
-      }}
-    >
-      {categoria.logo ? (
-        <Box component="img" src={categoria.logo} alt="" sx={{ width: '72%', height: '72%', objectFit: 'contain' }} />
-      ) : (
-        <categoria.icone sx={{ fontSize: tamanho * 0.62, color: categoria.cor }} />
-      )}
-    </Box>
-  )
-}
 
 // Menu lateral estreito com as categorias, no estilo "navigation rail" do Material 3:
 // ícone em cima, nome embaixo e o destaque em pílula no item ativo. No celular vira uma fileira.
@@ -254,7 +230,8 @@ function CardCodelab({ codelab, onBaixar, baixando }) {
   )
 }
 
-export default function CodelabsHome() {
+export default function CodelabsHome({ parametros = [] }) {
+  const trilhaId = parametros[0] === 'trilha' ? parametros[1] : null
   const [categoria, setCategoria] = useState(null)
   const [busca, setBusca] = useState('')
   const [ordem, setOrdem] = useState('recentes')
@@ -300,10 +277,22 @@ export default function CodelabsHome() {
 
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 2, md: 4 }, alignItems: 'flex-start' }}>
         <Reveal delay={60} sx={{ position: { md: 'sticky' }, top: { md: 24 }, flexShrink: 0, width: { xs: '100%', md: 'auto' } }}>
-          <TrilhoCategorias opcoes={opcoes} atual={categoria} onEscolher={setCategoria} />
+          <TrilhoCategorias
+            opcoes={opcoes}
+            atual={trilhaId ? undefined : categoria}
+            onEscolher={(chave) => {
+              setCategoria(chave)
+              if (trilhaId) window.location.hash = '/codelabs'
+            }}
+          />
         </Reveal>
 
         <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
+          {trilhaId ? (
+            <Reveal key={trilhaId}>
+              <PaginaTrilha id={trilhaId} />
+            </Reveal>
+          ) : (
           <Reveal delay={120}>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mb: 3, alignItems: { sm: 'center' } }}>
               <TextField
@@ -337,6 +326,16 @@ export default function CodelabsHome() {
               </ToggleButtonGroup>
             </Stack>
 
+            {/* sem filtro nem busca: painel com continue, trilhas e novidades antes da lista completa */}
+            {!categoria && !busca.trim() && (
+              <>
+                <CodelabsDashboard />
+                <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
+                  Todos os codelabs
+                </Typography>
+              </>
+            )}
+
             {visiveis.length === 0 ? (
               <Typography color="text.secondary" sx={{ textAlign: 'center', py: 6 }}>
                 Nenhum codelab encontrado.
@@ -351,6 +350,7 @@ export default function CodelabsHome() {
               </Grid>
             )}
           </Reveal>
+          )}
         </Box>
       </Box>
       <AvisoFormato />

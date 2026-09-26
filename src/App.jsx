@@ -24,7 +24,8 @@ const fundoGaveta = {
 
 export default function App() {
   const [rota, navegar, parametros] = useHashRoute(idsSecoes, 'inicio')
-  const [codelabId, passo] = rota === 'codelabs' ? parametros : []
+  // #/codelabs/<id>/<passo> abre o leitor; #/codelabs/trilha/<id> fica na página de codelabs
+  const [codelabId, passo] = rota === 'codelabs' && parametros[0] !== 'trilha' ? parametros : []
   const [gavetaAberta, setGavetaAberta] = useState(false)
   const secao = secoes.find((s) => s.id === rota)
   const Secao = secao.componente
@@ -110,7 +111,7 @@ export default function App() {
         {/* key força a remontagem, reiniciando as animações de entrada a cada troca de seção */}
         <Container key={rota} maxWidth={secao.largura ?? 'md'} sx={{ my: 'auto' }}>
           <Suspense fallback={null}>
-            <Secao />
+            <Secao parametros={parametros} />
           </Suspense>
         </Container>
       </Box>
