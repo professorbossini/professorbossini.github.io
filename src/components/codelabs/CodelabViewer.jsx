@@ -22,6 +22,8 @@ import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined'
 import FormatListNumbered from '@mui/icons-material/FormatListNumbered'
 import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined'
 import ColorModeToggle from '../ColorModeToggle'
+import { BossiniMark } from '../brand/BossiniMark'
+import AvisoFormato from './AvisoFormato'
 import { buscarCodelab, formatarDuracao, lerProgresso, salvarProgresso } from '../../codelabs'
 import { renderizarPasso } from '../../codelabs/markdown'
 import { transition } from '../../theme'
@@ -170,6 +172,11 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
               <ArrowBack />
             </IconButton>
           </Tooltip>
+          <Tooltip title="Bossini Codelabs">
+            <Box component="a" href="#/codelabs" aria-label="Bossini Codelabs" sx={{ display: { xs: 'none', sm: 'block' }, mr: 0.5 }}>
+              <BossiniMark size={30} />
+            </Box>
+          </Tooltip>
           <IconButton
             aria-label="Ver os passos"
             onClick={() => setGavetaAberta(true)}
@@ -258,6 +265,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
           </Typography>
           <Box ref={conteudo} onClick={aoClicarNoConteudo} sx={conteudoSx} dangerouslySetInnerHTML={{ __html: html }} />
         </Paper>
+        <AvisoFormato sx={{ maxWidth: 860, mx: 'auto', mt: 3, borderTop: 0, textAlign: 'center' }} />
       </Box>
 
       {/* navegação entre passos, como no Google Codelabs */}

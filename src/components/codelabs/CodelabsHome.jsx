@@ -27,7 +27,8 @@ import { codelabs, formatarDuracao, lerProgresso } from '../../codelabs'
 import { categoriaDe, categorias } from '../../codelabs/categorias'
 import { transition } from '../../theme'
 import Reveal from '../Reveal'
-import SectionTitle from '../SectionTitle'
+import { BossiniMark } from '../brand/BossiniMark'
+import AvisoFormato from './AvisoFormato'
 import useBaixarPdf from './useBaixarPdf'
 
 const formatoData = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -171,8 +172,16 @@ export default function CodelabsHome() {
   return (
     <Box component="section">
       <Reveal>
-        <SectionTitle eyebrow="// codelabs">Codelabs</SectionTitle>
-        <Typography color="text.secondary" sx={{ mt: -2, mb: 4, maxWidth: 640 }}>
+        <Typography variant="overline" color="primary" component="p">
+          // codelabs
+        </Typography>
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center', mb: 2 }}>
+          <BossiniMark size={52} />
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.9rem', sm: '2.4rem' } }}>
+            Bossini Codelabs
+          </Typography>
+        </Stack>
+        <Typography color="text.secondary" sx={{ mb: 4, maxWidth: 640 }}>
           Tutoriais guiados, passo a passo, para aprender fazendo. Cada codelab também tem a apostila
           completa em PDF.
         </Typography>
@@ -272,6 +281,7 @@ export default function CodelabsHome() {
           </Reveal>
         </Grid>
       </Grid>
+      <AvisoFormato />
       {aviso}
     </Box>
   )

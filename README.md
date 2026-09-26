@@ -36,7 +36,7 @@ novas aparecem sozinhas, com um nome derivado do nome da pasta e um ícone gené
 nome bonito, categoria e ícone, adicione uma entrada em `catalogo` no `src/material.js`. Logos de
 tecnologias vêm do [Devicon](https://devicon.dev).
 
-## Codelabs
+## Bossini Codelabs
 
 A página `#/codelabs` lista tutoriais no formato de fonte do [Google Codelabs](https://github.com/googlecodelabs/tools)
 (Markdown do `claat`). Cada um fica em `src/codelabs/<id>/codelab.md`, com as imagens em

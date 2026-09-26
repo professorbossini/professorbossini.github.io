@@ -17,7 +17,7 @@ const CodelabsHome = lazy(() => import('./components/codelabs/CodelabsHome'))
 export const secoes = [
   { id: 'inicio', rotulo: 'Início', icone: HomeOutlined, componente: Hero },
   { id: 'material', rotulo: 'Material didático', icone: MenuBookOutlined, componente: Material },
-  { id: 'codelabs', rotulo: 'Codelabs', icone: ScienceOutlined, componente: CodelabsHome, largura: 'lg' },
+  { id: 'codelabs', rotulo: 'Bossini Codelabs', icone: ScienceOutlined, componente: CodelabsHome, largura: 'lg' },
   { id: 'redes', rotulo: 'Redes sociais', icone: ShareOutlined, componente: Links },
   { id: 'formacao', rotulo: 'Formação', icone: SchoolOutlined, componente: Trajetoria },
   { id: 'musica', rotulo: 'Fora da sala de aula', icone: MusicNoteOutlined, componente: Galeria },
