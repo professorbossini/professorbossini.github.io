@@ -97,9 +97,9 @@ export const trilhas = [
   {
     id: 'data-warehouse',
     titulo: 'Data Warehouse',
-    descricao: 'Python para análise de dados, conceitos de DW, star schema no PostgreSQL e o projeto do semestre.',
+    descricao: 'Python para análise de dados, a jornada de dados na prática, conceitos de DW, star schema no PostgreSQL e o projeto do semestre.',
     icone: 'Bancos de Dados',
-    codelabs: ['python-introducao', 'dw-introducao', 'dw-postgresql-star-schema', 'dw-projeto-semestre'],
+    codelabs: ['python-introducao', 'dados-jornada-de-dados', 'dw-introducao', 'dw-postgresql-star-schema', 'dw-projeto-semestre'],
   },
   {
     id: 'aws',
