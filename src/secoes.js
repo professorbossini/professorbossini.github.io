@@ -15,6 +15,9 @@ import Galeria from './components/Galeria'
 const Material = lazy(() => import('./components/Material'))
 const CodelabsHome = lazy(() => import('./components/codelabs/CodelabsHome'))
 const BossiniFaz = lazy(() => import('./components/BossiniFaz'))
+const MinhaConta = lazy(() => import('./components/conta/MinhaConta'))
+const Turmas = lazy(() => import('./components/conta/Turmas'))
+const Privacidade = lazy(() => import('./components/conta/Privacidade'))
 
 export const secoes = [
   { id: 'inicio', rotulo: 'Início', icone: HomeOutlined, componente: Hero },
@@ -24,6 +27,10 @@ export const secoes = [
   { id: 'formacao', rotulo: 'Formação', icone: SchoolOutlined, componente: Trajetoria },
   { id: 'bossini-faz', rotulo: 'Bossini faz', icone: RocketLaunchOutlined, componente: BossiniFaz, largura: 'lg' },
   { id: 'musica', rotulo: 'Fora da sala de aula', icone: MusicNoteOutlined, componente: Galeria },
+  // fora do menu: chegam pela conta e pelos links da política
+  { id: 'conta', rotulo: 'Minha conta', componente: MinhaConta, oculta: true },
+  { id: 'turmas', rotulo: 'Turmas', componente: Turmas, oculta: true, largura: 'lg' },
+  { id: 'privacidade', rotulo: 'Privacidade', componente: Privacidade, oculta: true },
 ]
 
 export const idsSecoes = secoes.map((s) => s.id)

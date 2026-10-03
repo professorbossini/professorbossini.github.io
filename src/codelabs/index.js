@@ -76,4 +76,30 @@ export function registrarAcesso(id, passo) {
   } catch {
     // navegação privada: segue sem salvar
   }
+  // com a conta conectada, o progresso também vai para o servidor (src/conta/progresso.js)
+  window.dispatchEvent(new CustomEvent('codelab:progresso', { detail: { id } }))
+}
+
+// Junta o progresso vindo da conta com o do navegador: vale o passo mais adiantado e,
+// para o "continue de onde parou", o acesso mais recente
+export function mesclarAcesso(id, { maximo, atual, quando }) {
+  const local = lerAcesso(id)
+  try {
+    if (maximo > local.maximo) localStorage.setItem(chave(id, 'passo'), String(maximo))
+    if (quando > local.quando) {
+      localStorage.setItem(chave(id, 'atual'), String(atual))
+      localStorage.setItem(chave(id, 'quando'), String(quando))
+    }
+  } catch {
+    // navegação privada
+  }
+}
+
+// Ao sair da conta neste navegador, o progresso local é apagado (ele continua salvo na conta)
+export function limparProgressoLocal() {
+  try {
+    for (const k of Object.keys(localStorage)) if (k.startsWith('codelab:')) localStorage.removeItem(k)
+  } catch {
+    // navegação privada
+  }
 }

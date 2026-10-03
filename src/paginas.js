@@ -36,6 +36,20 @@ export const paginas = {
     titulo: 'Fora da sala de aula',
     descricao: 'Música, palco e a vida do professor Rodrigo Bossini além das aulas.',
   },
+  privacidade: {
+    titulo: 'Política de Privacidade',
+    descricao: 'Como o site professorbossini.dev trata seus dados pessoais, conforme a LGPD: o que é guardado, para quê, por quanto tempo e como baixar ou apagar tudo.',
+  },
+  conta: {
+    titulo: 'Minha conta',
+    descricao: 'Perfil, dados pessoais e exclusão da conta.',
+    indexar: false,
+  },
+  turmas: {
+    titulo: 'Turmas',
+    descricao: 'Turmas do professor Rodrigo Bossini: entre com o código e acompanhe a trilha da disciplina.',
+    indexar: false,
+  },
 }
 
 // Título completo da aba: a página inicial já traz o nome, as demais recebem o sufixo

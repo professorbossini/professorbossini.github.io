@@ -22,6 +22,7 @@ import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
 import AppsOutlined from '@mui/icons-material/AppsOutlined'
 import { codelabs, compararRecentes, formatarDuracao, lerProgresso, urlCodelab } from '../../codelabs'
 import { irPara } from '../../useRota'
+import ConviteConta from '../conta/ConviteConta'
 import { categoriasDe, categorias } from '../../codelabs/categorias'
 import { transition } from '../../theme'
 import Reveal from '../Reveal'
@@ -330,6 +331,7 @@ export default function CodelabsHome({ parametros = [] }) {
             {/* sem filtro nem busca: painel com continue, trilhas e novidades antes da lista completa */}
             {!categoria && !busca.trim() && (
               <>
+                <ConviteConta />
                 <CodelabsDashboard />
                 <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
                   Todos os codelabs

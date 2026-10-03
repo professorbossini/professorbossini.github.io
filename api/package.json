@@ -1,0 +1,22 @@
+{
+  "name": "bossini-api",
+  "version": "1.0.0",
+  "description": "API do site professorbossini.dev (Cloud Run + Neon)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@hono/node-server": "^2.1.3",
+    "google-auth-library": "^11.1.0",
+    "hono": "^4.13.12",
+    "jose": "^6.2.12",
+    "postgres": "^3.4.9"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  }
+}

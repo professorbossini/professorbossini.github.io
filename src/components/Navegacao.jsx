@@ -1,6 +1,7 @@
-import { Box, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
+import { Box, Link, List, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material'
 import { gradiente, transition } from '../theme'
 import { caminhoDe, secoes } from '../secoes'
+import BotaoConta from './conta/BotaoConta'
 
 const itemSx = {
   borderRadius: 99,
@@ -53,7 +54,7 @@ export default function Navegacao({ rota, onNavegar }) {
       </Stack>
 
       <List component="nav" aria-label="Seções do site" sx={{ mt: 1 }}>
-        {secoes.map(({ id, rotulo, icone: Icone }) => (
+        {secoes.filter((s) => !s.oculta).map(({ id, rotulo, icone: Icone }) => (
           <ListItemButton
             key={id}
             selected={rota === id}
@@ -70,11 +71,15 @@ export default function Navegacao({ rota, onNavegar }) {
       </List>
 
 
-      <Box sx={{ mt: 'auto', px: 2.5, pb: 2 }}>
-        <Box sx={{ height: '1px', background: gradiente, opacity: 0.6, mb: 2 }} />
-        <Typography variant="caption" color="text.secondary">
-          © {new Date().getFullYear()} Rodrigo Bossini
-        </Typography>
+      <Box sx={{ mt: 'auto' }}>
+        <BotaoConta onNavegar={onNavegar} />
+        <Box sx={{ px: 2.5, pb: 2 }}>
+          <Box sx={{ height: '1px', background: gradiente, opacity: 0.6, mb: 2 }} />
+          <Typography variant="caption" color="text.secondary">
+            © {new Date().getFullYear()} Rodrigo Bossini ·{' '}
+            <Link href="/privacidade/" color="inherit" onClick={onNavegar}>Privacidade</Link>
+          </Typography>
+        </Box>
       </Box>
     </Stack>
   )

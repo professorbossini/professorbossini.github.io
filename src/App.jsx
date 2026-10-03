@@ -7,6 +7,7 @@ import ColorModeToggle from './components/ColorModeToggle'
 import { PoweredByFaisca } from './components/brand/PoweredByFaisca'
 import AuroraBackground from './components/AuroraBackground'
 import Navegacao from './components/Navegacao'
+import EntrarGlobal from './components/conta/EntrarGlobal'
 import useRota from './useRota'
 import { caminhoDe, idsSecoes, secoes } from './secoes'
 import { definirMeta, paginas, tituloDaPagina, tituloDaTrilha } from './paginas'
@@ -58,6 +59,7 @@ export default function App() {
         <Suspense fallback={null}>
           <CodelabViewer id={codelabId} passo={passo} />
         </Suspense>
+        <EntrarGlobal />
       </ThemeProvider>
     )
   }
@@ -125,6 +127,8 @@ export default function App() {
           </Suspense>
         </Container>
       </Box>
+
+      <EntrarGlobal />
 
       {/* selo "feito com Faísca", só na página inicial */}
       {rota === 'inicio' && <PoweredByFaisca />}

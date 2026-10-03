@@ -61,6 +61,7 @@ function metas({ caminho, titulo, descricao, imagem = '/og.png', tipo = 'website
 // Menu com links para as seções, para os buscadores encontrarem todas as páginas
 const menu = () =>
   `<nav><ul>${Object.entries(paginas)
+    .filter(([, p]) => p.indexar !== false)
     .map(([id, p]) => `<li><a href="${id === 'inicio' ? '/' : `/${id}`}">${escapar(p.titulo)}</a></li>`)
     .join('')}</ul></nav>`
 
@@ -126,8 +127,9 @@ export default function paginasEstaticas({ lerCodelabs }) {
             : id === 'codelabs'
               ? { '@type': 'CollectionPage', name: p.titulo, description: p.descricao, url: SITE + caminho }
               : undefined
-        escrever(caminho, montar({ caminho, titulo: tituloDaPagina(id), descricao: p.descricao, imagem: p.imagem, jsonLd }, corpo))
-        sitemap.push({ caminho, data: hoje, prioridade: id === 'inicio' ? '1.0' : id === 'codelabs' ? '0.9' : '0.7' })
+        const indexar = p.indexar !== false
+        escrever(caminho, montar({ caminho, titulo: tituloDaPagina(id), descricao: p.descricao, imagem: p.imagem, jsonLd, indexar }, corpo))
+        if (indexar) sitemap.push({ caminho, data: hoje, prioridade: id === 'inicio' ? '1.0' : id === 'codelabs' ? '0.9' : '0.7' })
       }
 
       // codelabs

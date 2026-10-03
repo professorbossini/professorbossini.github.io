@@ -23,6 +23,8 @@ import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined'
 import FormatListNumbered from '@mui/icons-material/FormatListNumbered'
 import ScheduleOutlined from '@mui/icons-material/ScheduleOutlined'
 import ColorModeToggle from '../ColorModeToggle'
+import BotaoConta from '../conta/BotaoConta'
+import InteracaoPasso from '../conta/InteracaoPasso'
 import { BossiniMark } from '../brand/BossiniMark'
 import AvisoFormato from './AvisoFormato'
 import { buscarCodelab, carregarCodelab, formatarDuracao, lerProgresso, registrarAcesso, urlCodelab } from '../../codelabs'
@@ -216,6 +218,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
           )}
           <BotaoExercicios arquivos={codelab.exercicios} onBaixar={baixar} baixando={baixando} variante="icone" />
           <ColorModeToggle />
+          <BotaoConta compacto />
         </Toolbar>
         <LinearProgress
           variant="determinate"
@@ -287,6 +290,7 @@ export default function CodelabViewer({ id, passo: passoDaUrl }) {
             </Stack>
           )}
         </Paper>
+        <InteracaoPasso codelab={codelab.id} passo={atual} />
         <AvisoFormato sx={{ maxWidth: 860, mx: 'auto', mt: 3, borderTop: 0, textAlign: 'center' }} />
       </Box>
 
