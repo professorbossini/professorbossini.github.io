@@ -1,0 +1,62 @@
+name: API no Cloud Run
+
+# Testa a API contra um PostgreSQL de verdade e, se passar, publica no Cloud Run.
+# Sem chaves guardadas no GitHub: o acesso ao Google Cloud é pela federação de identidade
+# (Workload Identity Federation), restrita a este repositório e à branch main.
+on:
+  push:
+    branches: [main]
+    paths: ['api/**', '.github/workflows/api.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: api
+  cancel-in-progress: false
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: api/package-lock.json
+      - run: npm ci
+      - run: npm test
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+
+  publicar:
+    needs: testes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/1075753258613/locations/global/workloadIdentityPools/github/providers/repositorio
+          service_account: github-deploy@professorbossini-site.iam.gserviceaccount.com
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: ./api/deploy.sh
+        env:
+          PROJETO: professorbossini-site
+          GOOGLE_CLIENT_ID: 1075753258613-l4db6oe0qos8r3ge9dpoeif7hhdbhvps.apps.googleusercontent.com
+          PROFESSORES: professorbossini@gmail.com
+      - name: Confere se a API responde
+        run: curl -fsS https://bossini-api-1075753258613.southamerica-east1.run.app/saude

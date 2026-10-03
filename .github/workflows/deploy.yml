@@ -3,6 +3,8 @@ name: Deploy no GitHub Pages
 on:
   push:
     branches: [main]
+    # mudanças só na API são publicadas pelo workflow api.yml
+    paths-ignore: ['api/**', '.github/workflows/api.yml']
   workflow_dispatch:
 
 permissions:
